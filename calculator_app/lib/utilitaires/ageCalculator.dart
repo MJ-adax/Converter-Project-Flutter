@@ -21,6 +21,7 @@ class _AgeCalculatorPageState extends State<AgeCalculatorPage> {
   String hoursSinceBirth = " ";
   String minutesSinceBirth = " ";
   String secondsSinceBirth = " ";
+  String daysUntilBirthday =  " ";
   String hours=" ", days =" ", months = " ", years =" ", minutes = " ";
 
   @override
@@ -45,6 +46,7 @@ class _AgeCalculatorPageState extends State<AgeCalculatorPage> {
                         .then((date) {
                       _dateTime = date!;
                       _sinceWhenAmIHere(date);
+                      _whenIsMyBirthday();
                     });
                   }),
               Text("Vous êtes né le : "
@@ -52,13 +54,14 @@ class _AgeCalculatorPageState extends State<AgeCalculatorPage> {
                   + " " + DateFormat("dd").format(_dateTime).toString()
                   + " " + DateFormat("MMMM").format(_dateTime).toString()
                   + " " + DateFormat("yyyy").format(_dateTime).toString()),
-              Text("Vous avez donc : " + days +" " + months + " " + years),
+              Text(days +" " + months + " " + years),
               Text(years),
               Text(monthsSinceBirth),
               Text(daysSinceBirth),
               Text(hoursSinceBirth),
               Text(minutesSinceBirth),
               Text(secondsSinceBirth),
+              Text(daysUntilBirthday),
 
             ]
         ),
@@ -82,12 +85,12 @@ class _AgeCalculatorPageState extends State<AgeCalculatorPage> {
     setState(() {
       dayOfBirth = int.parse(DateFormat("dd").format(date));
       monthOfBirth = int.parse(DateFormat("MM").format(date));
-      yearOfBirth = int.parse(DateFormat("yy").format(date));
+      yearOfBirth = int.parse(DateFormat("yyyy").format(date));
 
       int dayNow = int.parse(DateFormat("dd").format(DateTime.now()));
       int monthNow = int.parse(DateFormat("MM").format(DateTime.now()));
-      int yearNow = int.parse(DateFormat("yy").format(DateTime.now()));
-      days = ((dayNow - dayOfBirth)).toString()+ " jours";
+      int yearNow = int.parse(DateFormat("yyyy").format(DateTime.now()));
+      days = "Vous avez donc : " + ((dayNow - dayOfBirth)).toString()+ " jours";
       months = ((monthNow - monthOfBirth)).toString() + " mois";
       years = ((yearNow - yearOfBirth)).toString()+ " ans";
 
@@ -95,7 +98,7 @@ class _AgeCalculatorPageState extends State<AgeCalculatorPage> {
     });
   }
 
-  Future _sinceBirth(int dayNow, int monthNow, int yearNow) async {
+  _sinceBirth(int dayNow, int monthNow, int yearNow) {
     int intMonths, intDays, intHours, intMinutes;
 
     intMonths = ((yearNow - yearOfBirth) * 12) + (monthNow - monthOfBirth);
@@ -110,5 +113,20 @@ class _AgeCalculatorPageState extends State<AgeCalculatorPage> {
     intMinutes = intHours * 60;
     minutesSinceBirth = intMinutes.toString() + "min";
     secondsSinceBirth = (intMinutes * 60).toString() + "s";
+  }
+
+  _whenIsMyBirthday() {
+    DateTime currentTime = DateTime.now();
+    DateTime birthday = DateTime(DateTime.now().year, _dateTime.month, _dateTime.day);
+
+    setState(() {
+      if(currentTime.year == birthday.year && currentTime.month > birthday.month && currentTime.day > birthday.day) {
+        daysUntilBirthday = "Votre prochain anniversaire est dans " + currentTime.difference(birthday).inDays.toString();
+      }
+      else {
+        birthday = DateTime(DateTime.now().year + 1, _dateTime.month, _dateTime.day);
+        daysUntilBirthday = "Votre prochain anniversaire est dans " + currentTime.difference(birthday).inDays.toString() + " jours";
+      }
+    });
   }
 }
