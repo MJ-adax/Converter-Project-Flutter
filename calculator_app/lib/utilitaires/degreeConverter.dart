@@ -12,30 +12,47 @@ class DegreeConverterPage extends StatefulWidget  {
 
 class _DegreeConverterPageState extends State<DegreeConverterPage> {
 
-  String dropdownValue = 'Celsius';
-  String dropdownValue2 = 'Kelvin';
+  var tempFormat = [
+    'Celsius',
+    'Kelvin',
+    'Fahrenheit'
+  ];
+
   var myController1 = TextEditingController();
+  var dropdownValue = 'Celsius';
+  var firstFieldResultValue = '0';
+
   var myController2 = TextEditingController();
-  num dValue = 0;
-  num cValue = 0;
-  num kValue = 0;
-  num fValue = 0;
+  var dropdownValue2 = 'Kelvin';
+  var secondFieldResultValue = '273.15';
 
+  String tempTranslate(String baseValue, String formatToTranslate, String formatTranslated){
 
+    if(formatToTranslate == 'Celsius' && formatTranslated == 'Kelvin'){
+     return (num.parse(baseValue)+ 273.15 ).toString();
+    }
+    else if(formatToTranslate == 'Celsius' && formatTranslated == 'Fahrenheit'){
+      return (num.parse(baseValue)*(9/5) +32).toString();
+    }
 
-//   void stringToDouble(tValue) {
-//     dValue = double.parse(tValue);
-//  }
-//
-//
-//   resultatDansTextfield2(value){
-//     myController2.text = '$kValue' ;
-// }
- celsiusToKelvin(String tValue){
-    dValue = num.parse('$tValue');
-    kValue = dValue + 273.15;
-    myController2.text = kValue.toStringAsFixed(2);
+    else if(formatToTranslate == 'Fahrenheit' && formatTranslated == 'Celsius'){
+      return ((num.parse(baseValue)-32)*(5/9) ).toString();
+    }
+    else if(formatToTranslate == 'Fahrenheit' && formatTranslated == 'Kelvin'){
+      return ((num.parse(baseValue)-32)*(5/9)+273.15 ).toString();
+    }
+
+    else if(formatToTranslate == 'Kelvin' && formatTranslated == 'Fahrenheit'){
+      return ((num.parse(baseValue)- 273.15)*(9/5)+32 ).toString();
+    }
+    else if(formatToTranslate == 'Kelvin' && formatTranslated == 'Celsius'){
+      return (num.parse(baseValue)- 273.15 ).toString();
+    }
+    else {return baseValue;}
+
   }
+
+
 
 
 
@@ -61,46 +78,58 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
         child: Column(
           children : <Widget>[
             DropdownButton<String>(
-              value: dropdownValue,
-              icon: Icon(Icons.arrow_downward),
-              iconSize: 24,
-              elevation: 16,
-              onChanged: (String? newValue){
-                setState(() {
-                  dropdownValue = newValue!;
-                });
-              },
-              items: <String>['Celsius', 'Kelvin', 'Farenheit']
-                .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              })
-              .toList(),
 
-            ),
+              value: dropdownValue,
+              onChanged: (String? selectedValue) {
+                setState(() {
+                  dropdownValue = selectedValue!;
+                  secondFieldResultValue = tempTranslate(
+                    firstFieldResultValue,
+                    dropdownValue,
+                    dropdownValue2
+                  );
+                  myController2.text = secondFieldResultValue;
+                });
+                },
+                items: tempFormat
+                    .map<DropdownMenuItem<String>>((String value) {
+                   return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList()),
             TextField(
               controller: myController1,
-            //  onChanged: celsiusToKelvin(myController1.text),
-
-
-
-
-
-
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Valeur à convertir',
+              ),
+              onChanged: (String? inputValue){
+                setState((){
+                  firstFieldResultValue = inputValue!;
+                  secondFieldResultValue = tempTranslate(
+                      firstFieldResultValue,
+                      dropdownValue,
+                      dropdownValue2
+                  );
+                  myController2.text = secondFieldResultValue;
+                });
+              },
             ),
             DropdownButton<String>(
               value: dropdownValue2,
-              icon: Icon(Icons.arrow_downward),
-              iconSize: 24,
-              elevation: 16,
-              onChanged: (String? newValue2){
+              onChanged: (String? selectedValue) {
                 setState(() {
-                  dropdownValue2 = newValue2!;
+                  dropdownValue2 = selectedValue!;
+                  firstFieldResultValue = tempTranslate(
+                      secondFieldResultValue,
+                      dropdownValue2,
+                      dropdownValue
+                  );
+                  myController1.text = firstFieldResultValue;
                 });
               },
-              items: <String>['Celsius', 'Kelvin', 'Farenheit']
+              items: tempFormat
                   .map<DropdownMenuItem<String>>((String value2) {
                 return DropdownMenuItem<String>(
                   value: value2,
@@ -113,27 +142,23 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
 
             TextField(
               controller: myController2,
-          //    onChanged: celsiusToKelvin(myController2.text),
-
-
-
-
-
-
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Valeur à convertir',
+              ),
+              onChanged: (String? inputValue){
+                setState((){
+                  secondFieldResultValue = inputValue!;
+                  firstFieldResultValue = tempTranslate(
+                      secondFieldResultValue,
+                      dropdownValue2,
+                      dropdownValue
+                  );
+                  myController1.text = firstFieldResultValue;
+                });
+              },
             ),
-
-
-
-
-            // ElevatedButton(
-            //   child: Text('convert'),
-            //   onPressed: () => {
-            //     celsiusToKelvin(myController1.text),
-            //
-            //
-            //   },
-            //
-            // ),
+            
           ],
         ),
       ),
