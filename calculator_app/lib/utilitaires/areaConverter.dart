@@ -111,7 +111,7 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
           children : <Widget>[
           Container(
             padding: const EdgeInsets.only(top: 50, right: 50, left:50 ),
-            child: DropdownButton<String>(
+            child: DropdownButton<String>( //1er DropDown
               dropdownColor: Colors.white60,
                 value: dropdownValue,
                 underline: Container(
@@ -121,10 +121,6 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
                 onChanged: (String? selectedValue) {
                   setState(() {
                     dropdownValue = selectedValue!;
-                    // secondFieldResultValue = areaTranslate(
-                    //     firstFieldResultValue,
-                    //     dropdownValue,
-                    //     dropdownValue2
                     secondFieldResultValue = areaTranslate(
                         firstFieldResultValue,
                         dropdownValue,
@@ -143,7 +139,7 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
           ),
           Container(
             padding: const EdgeInsets.only(top: 50, right: 50, left:50 ),
-            child:  TextField(
+            child:  TextField(   //1er TextField
                 controller: myController1,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -163,7 +159,7 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
         ),
             Container(
              padding: const EdgeInsets.only(top: 200, right: 50, left:50 ),
-             child: DropdownButton<String>(
+             child: DropdownButton<String>(     //2ème DropDown
                dropdownColor: Colors.white60,
                 value: dropdownValue2,
                 underline: Container(
@@ -193,7 +189,7 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
         ),
             Container(
               padding: const EdgeInsets.only(bottom: 50, right: 50, left:50 ),
-            child : TextField(
+            child : TextField( //2ème TextField
               controller: myController2,
 
               decoration: InputDecoration(
