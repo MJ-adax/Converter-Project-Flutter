@@ -83,10 +83,11 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
               onChanged: (String? selectedValue) {
                 setState(() {
                   dropdownValue = selectedValue!;
-                  secondFieldResultValue = tempTranslate(
+                secondFieldResultValue = tempTranslate(
                     firstFieldResultValue,
                     dropdownValue,
                     dropdownValue2
+
                   );
                   myController2.text = secondFieldResultValue;
                 });
@@ -121,10 +122,11 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
               onChanged: (String? selectedValue) {
                 setState(() {
                   dropdownValue2 = selectedValue!;
-                  firstFieldResultValue = tempTranslate(
-                      secondFieldResultValue,
-                      dropdownValue2,
-                      dropdownValue
+                firstFieldResultValue = tempTranslate(
+                    secondFieldResultValue,
+                    dropdownValue2,
+                    dropdownValue
+
                   );
                   myController1.text = firstFieldResultValue;
                 });

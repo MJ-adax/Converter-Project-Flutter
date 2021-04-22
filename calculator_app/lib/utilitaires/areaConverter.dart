@@ -131,6 +131,10 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
                 onChanged: (String? selectedValue) {
                   setState(() {
                     dropdownValue = selectedValue!;
+                    // secondFieldResultValue = areaTranslate(
+                    //     firstFieldResultValue,
+                    //     dropdownValue,
+                    //     dropdownValue2
                     secondFieldResultValue = areaTranslate(
                         firstFieldResultValue,
                         dropdownValue,
@@ -154,7 +158,6 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
               ),
               onChanged: (String? inputValue){
                 setState((){
-                  firstFieldResultValue = inputValue!;
                   secondFieldResultValue = areaTranslate(
                       firstFieldResultValue,
                       dropdownValue,
