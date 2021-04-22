@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Convertisseur BB'),
+      home: MyHomePage(title: 'Flutter Calculator'),
     );
   }
 }
@@ -164,7 +164,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       children: <Widget>[
                         navigation[index].icon,
-                        Text("${navigation[index].title}", textAlign: TextAlign.center),
+                        Text(
+                            "${navigation[index].title}",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(height: 3, fontSize: 20),
+                        ),
                       ],
                     ),
                     color: index.remainder(2) == 0 ? Colors.teal[500] : Colors.teal[100]
@@ -207,26 +211,33 @@ class _MyHomePageState extends State<MyHomePage> {
               return Container(
                 width: 150,
                 height: 200,
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
+                child: InkResponse(
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    color: index.remainder(2) == 0 ? Colors.teal[500] : Colors.teal[100],
+                    elevation: 10,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        ListTile(
+                          leading: navigation[index].icon,
+                          title: Text(
+                            "${navigation[index].title}",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(height: 5, fontSize: 25),
+                          ),
+                          //tileColor: index.remainder(2) == 0 ? Colors.teal[500] : Colors.teal[100],
+
+                        ),
+                      ],
+                    ),
                   ),
-                  color: index.remainder(2) == 0 ? Colors.teal[500] : Colors.teal[100],
-                  elevation: 10,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      ListTile(
-                        leading: navigation[index].icon,
-                        title: Text("${navigation[index].title}", textAlign: TextAlign.center),
-                        //tileColor: index.remainder(2) == 0 ? Colors.teal[500] : Colors.teal[100],
-                        onTap: () => {
-                          // Navigation to ComputerFileSizeConverterPage.
-                          navigateToChosenDestination(navigation[index].title)
-                        },
-                      ),
-                    ],
-                  ),
+                  onTap: () => {
+                  // Navigation to ComputerFileSizeConverterPage.
+                  navigateToChosenDestination(navigation[index].title)
+                  },
                 )
               );
             })
