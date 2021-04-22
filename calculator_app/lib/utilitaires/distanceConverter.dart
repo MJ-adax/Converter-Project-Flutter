@@ -13,10 +13,9 @@ class DistanceConverterPage extends StatefulWidget  {
 
 class _DistanceConverterPageState extends State<DistanceConverterPage> {
 
-
   var firstTextFieldController = TextEditingController();
   var secondTextFieldController = TextEditingController();
-
+  //On utilise l'id pour référencer la distance.
   var _sizeFormat = [
     "Millimètres (mm)",
     "Centimètres (cm)",
@@ -132,6 +131,7 @@ class _DistanceConverterPageState extends State<DistanceConverterPage> {
     );
   }
 
+  // En fonction du format de translate, demande beaucoup de vérification.
   String _distanceTranslate(String baseValue, int formatToTranslate, int formatTranslated) {
     if(formatToTranslate < 8 && formatTranslated < 8) {
       print("inf 8");
@@ -153,6 +153,7 @@ class _DistanceConverterPageState extends State<DistanceConverterPage> {
   }
 }
 
+  //Très peu maintenable, mais valeur fixe => en faire une interface / library
   String _distanceTranslateMetricToMetric(String baseValue, int formatToTranslate, int formatTranslated) {
     print("METRIC TO METRIC");
     if(formatToTranslate > formatTranslated){

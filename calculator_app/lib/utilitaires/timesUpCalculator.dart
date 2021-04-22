@@ -3,19 +3,15 @@ import 'package:flutter/material.dart';
 
 class TimesUpCalculatorPage extends StatefulWidget  {
   TimesUpCalculatorPage({Key? key, required this.title}) : super(key: key);
-
   final String title;
-
   @override
   _TimesUpCalculatorPageState createState() => _TimesUpCalculatorPageState();
 }
 
 class _TimesUpCalculatorPageState extends State<TimesUpCalculatorPage> {
-
   int nbYears = 0;
   int nbMonths = 0;
   int nbDays = 0;
-
   DateTime fromDate =
   DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   DateTime toDate =
@@ -28,7 +24,6 @@ class _TimesUpCalculatorPageState extends State<TimesUpCalculatorPage> {
       firstDate: DateTime(2018),
       lastDate: DateTime(2030),
     );
-
     if (picked != null) {
       _date = picked;
     }
@@ -36,7 +31,6 @@ class _TimesUpCalculatorPageState extends State<TimesUpCalculatorPage> {
   }
 
   void _calculateTimesUp(DateTime fromDate, DateTime toDate) {
-
     setState(() {
        nbYears = toDate.year - fromDate.year;
       nbMonths = toDate.month - fromDate.month;
@@ -51,7 +45,6 @@ class _TimesUpCalculatorPageState extends State<TimesUpCalculatorPage> {
       }
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,10 +96,7 @@ class _TimesUpCalculatorPageState extends State<TimesUpCalculatorPage> {
             ),
           ],
         )
-
-
       ),
     );
   }
-
 }

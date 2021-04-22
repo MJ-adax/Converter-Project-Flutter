@@ -4,18 +4,14 @@ import 'package:flutter/services.dart';
 
 class SaleCalculatorPage extends StatefulWidget  {
   SaleCalculatorPage({Key? key, required this.title}) : super(key: key);
-
   final String title;
-
   @override
   _SaleCalculatorPageState createState() => _SaleCalculatorPageState();
 }
 
 class _SaleCalculatorPageState extends State<SaleCalculatorPage> {
-
   final priceController = TextEditingController();
   final percentController = TextEditingController();
-
   double saving = 0;
   double salePrice = 0;
   double savingRounded = 0;
@@ -23,7 +19,6 @@ class _SaleCalculatorPageState extends State<SaleCalculatorPage> {
 
   /// Function to calculate promotion between a price and a reduction.
    void _calculateSale(double price, int percent) {
-
      saving = (price * percent) / 100;
      salePrice = price - saving;
      setState(() {
