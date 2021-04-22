@@ -69,18 +69,6 @@ class _AgeCalculatorPageState extends State<AgeCalculatorPage> {
     );
   }
 
-  _openDatePickerOnStart() {
-    showDatePicker(
-        context: context,
-        initialDate: _dateTime,
-        firstDate: DateTime(1900),
-        lastDate: DateTime.now())
-        .then((date) {
-      _dateTime = date!;
-      _sinceWhenAmIHere(date);
-    });
-  }
-
   _sinceWhenAmIHere(DateTime date) {
     setState(() {
       dayOfBirth = int.parse(DateFormat("dd").format(date));
