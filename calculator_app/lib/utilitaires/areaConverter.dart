@@ -31,7 +31,7 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
   var dropdownValue2 = 'm²';
   var secondFieldResultValue = '273.15';
 
-  String areaTranslate(String baseValue, String formatToTranslate, String formatTranslated){
+  String areaTranslate(String baseValue, String formatToTranslate, String formatTranslated){//fonction de convertion avec le text field les different menu du drop down en paramètres
 
     if(formatToTranslate == 'km²' && formatTranslated == 'm²'){
       return (num.parse(baseValue)*(pow(10, 6)) ).toString();
@@ -57,8 +57,6 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
     else if(formatToTranslate == 'm²' && formatTranslated == 'Acre'){
       return (num.parse(baseValue)/4046.86).toString();
     }
-
-
     else if(formatToTranslate == 'cm²' && formatTranslated == 'km²'){
       return (num.parse(baseValue)/(pow(10, 10)) ).toString();
     }
@@ -102,12 +100,6 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
   }
 
 
-
-
-
-
-
-
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -129,7 +121,7 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
           children : <Widget>[
           Container(
             padding: const EdgeInsets.only(top: 50, right: 50, left:50 ),
-            child: DropdownButton<String>(
+            child: DropdownButton<String>( //1er DropDown
               dropdownColor: Colors.white60,
                 value: dropdownValue,
                 underline: Container(
@@ -139,10 +131,6 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
                 onChanged: (String? selectedValue) {
                   setState(() {
                     dropdownValue = selectedValue!;
-                    // secondFieldResultValue = areaTranslate(
-                    //     firstFieldResultValue,
-                    //     dropdownValue,
-                    //     dropdownValue2
                     secondFieldResultValue = areaTranslate(
                         firstFieldResultValue,
                         dropdownValue,
@@ -161,7 +149,7 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
           ),
           Container(
             padding: const EdgeInsets.only(top: 50, right: 50, left:50 ),
-            child:  TextField(
+            child:  TextField(   //1er TextField
                 controller: myController1,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -181,7 +169,7 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
         ),
             Container(
              padding: const EdgeInsets.only(top: 200, right: 50, left:50 ),
-             child: DropdownButton<String>(
+             child: DropdownButton<String>(     //2ème DropDown
                dropdownColor: Colors.white60,
 
                 value: dropdownValue2,
@@ -215,7 +203,7 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
             Container(
 
               padding: const EdgeInsets.only(bottom: 50, right: 50, left:50 ),
-            child : TextField(
+            child : TextField( //2ème TextField
               controller: myController2,
 
               decoration: InputDecoration(
