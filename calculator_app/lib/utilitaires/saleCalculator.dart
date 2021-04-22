@@ -4,42 +4,26 @@ import 'package:flutter/services.dart';
 
 class SaleCalculatorPage extends StatefulWidget  {
   SaleCalculatorPage({Key? key, required this.title}) : super(key: key);
-
   final String title;
-
   @override
   _SaleCalculatorPageState createState() => _SaleCalculatorPageState();
 }
 
 class _SaleCalculatorPageState extends State<SaleCalculatorPage> {
-
   final priceController = TextEditingController();
   final percentController = TextEditingController();
-
   double saving = 0;
   double salePrice = 0;
   double savingRounded = 0;
   double salePriceRounded = 0;
-
    void _calculateSale(double price, int percent) {
-
      saving = (price * percent) / 100;
      salePrice = price - saving;
-
-
-
      setState(() {
        savingRounded = double.parse(saving.toStringAsFixed(2));
        salePriceRounded = double.parse(salePrice.toStringAsFixed(2));
      });
-
-
-    print(saving);
-    print(salePrice);
   }
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,9 +68,6 @@ class _SaleCalculatorPageState extends State<SaleCalculatorPage> {
                   ],
                 )
               ),
-
-
-
               TextButton(
                 child: Text("Valider"),
                 onPressed: () {
@@ -102,8 +83,6 @@ class _SaleCalculatorPageState extends State<SaleCalculatorPage> {
                     Text("Economie réalisée : $savingRounded €"),
                   ],
                 )
-
-
             ]
           )
         )
