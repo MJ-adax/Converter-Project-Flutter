@@ -1,3 +1,4 @@
+import 'package:calculator_app/navigationItems.dart';
 import 'package:calculator_app/utilitaires/ageCalculator.dart';
 import 'package:calculator_app/utilitaires/areaConverter.dart';
 import 'package:calculator_app/utilitaires/computerFileSizeConverter.dart';
@@ -39,77 +40,85 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  void navigateToComputerFileSizePage(){
-    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-      return new ComputerFileSizeConverterPage(
-          title: "Convertisseur de Fichiers Informatiques"
-      );
-    }));
-  }
+  var navigation = [
+    NavigationItem("Convertisseur de Fichiers Informatiques", Icon(Icons.folder), Colors.lightBlue),
+    NavigationItem("Calculateur d'Age", Icon(Icons.folder), Colors.lightBlue),
+    NavigationItem("Calculateur de Promotions", Icon(Icons.folder), Colors.lightBlue),
+    NavigationItem("Calculateur de Temps écoulé", Icon(Icons.folder), Colors.lightBlue),
+    NavigationItem("Convertisseur des Unités de distance", Icon(Icons.folder), Colors.lightBlue),
+    NavigationItem("Convertisseur des Valeurs numériques", Icon(Icons.folder), Colors.lightBlue),
+    NavigationItem("Convertisseur des Aires", Icon(Icons.folder), Colors.lightBlue),
+    NavigationItem("Convertisseur des Températures", Icon(Icons.folder), Colors.lightBlue),
+    NavigationItem("Convertisseur des Chiffres romains", Icon(Icons.folder), Colors.lightBlue)
+  ];
 
-  void navigateToAgeCalculatorPage(){
-    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-      return new AgeCalculatorPage(
-          title: "Calculateur d'Age"
-      );
-    }));
+  void navigateToChosenDestination (String chosenDestination) {
+    switch(chosenDestination){
+      case "Convertisseur de Fichiers Informatiques":
+        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+          return new ComputerFileSizeConverterPage(
+              title: chosenDestination
+          );
+        }));
+        break;
+      case "Calculateur d'Age":
+        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+          return new AgeCalculatorPage(
+              title: chosenDestination
+          );
+        }));
+        break;
+      case "Calculateur de Promotions":
+        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+          return new SaleCalculatorPage(
+              title: chosenDestination
+          );
+        }));
+        break;
+      case "Calculateur de Temps écoulé":
+        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+          return new TimesUpCalculatorPage(
+              title: chosenDestination
+          );
+        }));
+        break;
+      case "Convertisseur des Unités de distance":
+        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+          return new DistanceConverterPage(
+              title: chosenDestination
+          );
+        }));
+        break;
+      case "Convertisseur des Valeurs numériques":
+        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+          return new NumericValueConverterPage(
+              title: chosenDestination
+          );
+        }));
+        break;
+      case "Convertisseur des Aires":
+        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+          return new AreaConverterPage(
+              title: chosenDestination
+          );
+        }));
+        break;
+      case "Convertisseur des Températures":
+        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+          return new DegreeConverterPage(
+              title: chosenDestination
+          );
+        }));
+        break;
+      case "Convertisseur des Chiffres romains":
+        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+          return new RomanConverterPage(
+              title: chosenDestination
+          );
+        }));
+        break;
+    }
   }
-
-  void navigateToSaleCalculatorPage(){
-    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-      return new SaleCalculatorPage(
-          title: "Calculateur de Promotions"
-      );
-    }));
-  }
-  void navigateToTimesUpCalculatorPage(){
-    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-      return new TimesUpCalculatorPage(
-          title: "Calculateur de temps écoulés"
-      );
-    }));
-  }
-
-  void navigateToDistanceConverterPage(){
-    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-      return new DistanceConverterPage(
-          title: "Convertisseur des unités de distance"
-      );
-    }));
-  }
-
-  void navigateToNumericValueConverterPage(){
-    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-      return new NumericValueConverterPage(
-          title: "Convertisseur des valeurs numériques"
-      );
-    }));
-  }
-
-  void navigateToAreaConverterPage(){
-    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-      return new AreaConverterPage(
-          title: "Convertisseur des aires"
-      );
-    }));
-  }
-
-  void navigateToDegreeConverterPage(){
-    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-      return new DegreeConverterPage(
-          title: "Convertisseur des températures"
-      );
-    }));
-  }
-
-  void navigateToRomanConverterPage(){
-    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-      return new RomanConverterPage(
-          title: "Convertisseur des décimaux et chiffres romains"
-      );
-    }));
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -118,205 +127,38 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
 
       ),
-      body: GridView.count(
-        primary: false,
-        padding: const EdgeInsets.all(10),
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        crossAxisCount: 3,
-        children: <Widget>[
-
-          // Tile "Computer File Size"
-          GridTile(
-              child: InkResponse(
-                enableFeedback: true,
-                child: Container(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Column(
-                    children: <Widget>[
-                      Icon(Icons.file_copy_outlined),
-                      Text("Taille des fichiers informatiques", textAlign: TextAlign.center),
-                    ],
+      body: GridView.builder(
+          itemCount: navigation.length,
+          itemBuilder: (context, index) {
+            return GridTile(
+                child: InkResponse(
+                  enableFeedback: true,
+                  focusColor: navigation[index].color,
+                  child: Container(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Column(
+                      children: <Widget>[
+                        navigation[index].icon,
+                        Text("${navigation[index].title}", textAlign: TextAlign.center),
+                      ],
+                    ),
+                    color: Colors.teal[500],
                   ),
-                  color: Colors.teal[500],
-                ),
-                onTap: () => {
-                  // Navigation to ComputerFileSizeConverterPage.
-                  navigateToComputerFileSizePage()
-                },
-              )
-          ),
-
-          // Tile "Age Calculator Page"
-          GridTile(
-            child: InkResponse(
-              enableFeedback: true,
-              child: Container(
-                padding: const EdgeInsets.only(top: 20),
-                child: Column(
-                  children: <Widget>[
-                    Icon(Icons.calendar_today_sharp),
-                    Text("Quel age avez vous ?", textAlign: TextAlign.center),
-                  ],
-                ),
-                color: Colors.teal[100],
-              ),
-              onTap: () => {
-                // Navigation to AgeCalculatorPage.
-                navigateToAgeCalculatorPage()
-              },
-            ),
-          ),
-
-          // Tile "Sale Calculator Page"
-          GridTile(
-              child: InkResponse(
-                enableFeedback: true,
-                child: Container(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Column(
-                    children: <Widget>[
-                      Icon(Icons.add_shopping_cart),
-                      Text("Promotions", textAlign: TextAlign.center),
-                    ],
-                  ),
-                  color: Colors.teal[500],
-                ),
-                onTap: () => {
-                  // Navigation to SaleCalculatorPage.
-                  navigateToSaleCalculatorPage()
-                },
-              )
-          ),
-
-          // Tile "Times Up Page"
-          GridTile(
-              child: InkResponse(
-                enableFeedback: true,
-                child: Container(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Column(
-                    children: <Widget>[
-                      Icon(Icons.hourglass_bottom),
-                      Text("Temps écoulés", textAlign: TextAlign.center),
-                    ],
-                  ),
-                  color: Colors.teal[100],
-                ),
-                onTap: () => {
-                  // Navigation to TimeUpCalculatorPage.
-                  navigateToTimesUpCalculatorPage()
-                },
-              )
-          ),
-
-          // Tile "Distance Converter Page"
-          GridTile(
-              child: InkResponse(
-                enableFeedback: true,
-                child: Container(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Column(
-                    children: <Widget>[
-                      Icon(Icons.horizontal_rule),
-                      Text("Distance", textAlign: TextAlign.center),
-                    ],
-                  ),
-                  color: Colors.teal[500],
-                ),
-                onTap: () => {
-                  // Navigation to DistanceConverterPage
-                  navigateToDistanceConverterPage()
-                },
-              ),
-          ),
-
-          // Tile "Numeric Value Converter Page"
-          GridTile(
-            child: InkResponse(
-              enableFeedback: true,
-              child : Container(
-                padding: const EdgeInsets.only(top: 20),
-                child: Column(
-                  children: <Widget>[
-                    Icon(Icons.analytics_outlined),
-                    Text("Valeurs Numeriques", textAlign: TextAlign.center),
-                  ],
-                ),
-                color: Colors.teal[100],
-              ),
-              onTap: () => {
-                // Navigation to NumericValueConverterPage.
-                navigateToNumericValueConverterPage()
-              },
-            ),
-          ),
-
-          // Tile "Area Converter Page"
-          GridTile(
-            child: InkResponse(
-              enableFeedback: true,
-              child: Container(
-                padding: const EdgeInsets.only(top: 20),
-                child: Column(
-                  children: <Widget>[
-                    Icon(Icons.rounded_corner_sharp),
-                    Text("Aire", textAlign: TextAlign.center),
-                  ],
-                ),
-                color: Colors.teal[500],
-              ),
-              onTap: () => {
-                // Navigation to AreaConverterPage.
-                navigateToAreaConverterPage()
-              },
-            ),
-          ),
-
-          // Tile "Degree Converter Page
-          GridTile(
-            child: InkResponse(
-              enableFeedback: true,
-              child: Container(
-                padding: const EdgeInsets.only(top: 20),
-                child: Column(
-                  children: <Widget>[
-                    Icon(Icons.local_fire_department),
-                    Text("Températures", textAlign: TextAlign.center),
-                  ],
-                ),
-                color: Colors.teal[100],
-              ),
-              onTap: () => {
-                // Navigation to DegreeConverterPage.
-                navigateToDegreeConverterPage()
-              },
-            )
-          ),
-
-          // Tile "Roman Converter Page"
-          GridTile(
-            child: InkResponse(
-              enableFeedback: true,
-              child: Container(
-                padding: const EdgeInsets.only(top: 20),
-                child: Column(
-                  children: <Widget>[
-                    Icon(Icons.account_balance),
-                    Text("Décimaux VS Romains", textAlign: TextAlign.center),
-                  ],
-                ),
-                color: Colors.teal[500],
-              ),
-              onTap: () => {
-                // Navigation to RomanConverterPage.
-                navigateToRomanConverterPage()
-              },
-            )
-          ),
-
-        ],
-      ) // This trailing comma makes auto-formatting nicer for build methods.
+                  onTap: () => {
+                    // Navigation to ComputerFileSizeConverterPage.
+                    navigateToChosenDestination(navigation[index].title)
+                  },
+                )
+            );
+          },
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: MediaQuery.of(context).orientation ==
+                Orientation.landscape ? 3: 2,
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 8,
+            childAspectRatio: (2 / 1),
+          )
+      )
     );
   }
 }
