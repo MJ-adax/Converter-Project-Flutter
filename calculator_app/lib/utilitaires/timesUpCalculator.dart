@@ -9,9 +9,11 @@ class TimesUpCalculatorPage extends StatefulWidget  {
 }
 
 class _TimesUpCalculatorPageState extends State<TimesUpCalculatorPage> {
+
   int nbYears = 0;
   int nbMonths = 0;
   int nbDays = 0;
+
   DateTime fromDate =
   DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   DateTime toDate =
@@ -30,6 +32,7 @@ class _TimesUpCalculatorPageState extends State<TimesUpCalculatorPage> {
     return _date;
   }
 
+  /// Function to calculate the difference between two dates.
   void _calculateTimesUp(DateTime fromDate, DateTime toDate) {
     setState(() {
        nbYears = toDate.year - fromDate.year;
@@ -45,6 +48,7 @@ class _TimesUpCalculatorPageState extends State<TimesUpCalculatorPage> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,45 +59,87 @@ class _TimesUpCalculatorPageState extends State<TimesUpCalculatorPage> {
         child: Column(
           children: [
              Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Column(
                   children: <Widget>[
-                    Text('From:'),
-                    Text("${fromDate.toLocal()}".split(' ')[0]),
-                    IconButton(
-                      icon: Icon(Icons.calendar_today),
-                      onPressed: () async {
-                        fromDate = await selectDate(context, fromDate);
-                        setState(() {});
-                      },
+                    Text(
+                      'From :',
+                      style: TextStyle(height: 2, fontSize: 25)
                     ),
+                    Text(
+                        "${fromDate.toLocal()}".split(' ')[0],
+                        style: TextStyle(height: 3, fontSize: 25)
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 20, bottom: 20),
+                      width: 85,
+                      height: 75,
+
+                      child: ElevatedButton(
+                        child: Icon(
+                            Icons.calendar_today,
+                            size: 25
+                        ),
+                        onPressed: () async {
+                          fromDate = await selectDate(context, fromDate);
+                          setState(() {});
+                        },
+                      ),
+                    )
                   ],
                 ),
                 Column(
                   children: <Widget>[
-                    Text('To:'),
-                    Text("${toDate.toLocal()}".split(' ')[0]),
-                    IconButton(
-                      icon: Icon(Icons.calendar_today),
-                      onPressed: () async {
+                    Text(
+                        'To :',
+                        style: TextStyle(height: 2, fontSize: 25)
+                    ),
+                    Text(
+                        "${toDate.toLocal()}".split(' ')[0],
+                        style: TextStyle(height: 3, fontSize: 25)
+                    ),
+
+                    Container(
+                      padding: EdgeInsets.only(top: 20, bottom: 20),
+                      width: 85,
+                      height: 75,
+                      child: ElevatedButton(
+                        child: Icon(
+                          Icons.calendar_today,
+                          size: 25
+                        ),
+                        onPressed: () async {
                         toDate = await selectDate(context, toDate);
                         setState(() {});
-                      },
-                    ),
+                        },
+                      )
+                    )
                   ],
                 ),
               ],
             ),
-            TextButton(
+            Container(
+              margin: EdgeInsets.only(top: 60, bottom: 30),
+              width: 300,
+              height: 50,
+              child: ElevatedButton(
+                child: Text("Calculer"),
+                style: ElevatedButton.styleFrom(
+                  textStyle: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
                 onPressed: () {
                   _calculateTimesUp(fromDate, toDate);
                 },
-                child: Text("Valider")
+              ),
             ),
-            Text(
-              "Il y a $nbYears années, $nbMonths mois et $nbDays jours qui séparent les deux dates"
-            ),
+
+            if (nbYears != 0 || nbMonths != 0 || nbDays != 0)
+              Text(
+                "Il y a $nbYears années, $nbMonths mois et $nbDays jours qui séparent les deux dates", style: TextStyle( fontSize: 20)
+              ),
           ],
         )
       ),
