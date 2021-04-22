@@ -12,7 +12,7 @@ class DegreeConverterPage extends StatefulWidget  {
 
 class _DegreeConverterPageState extends State<DegreeConverterPage> {
 
-  var tempFormat = [
+  var tempFormat = [ //tableau dea format pour le DropDownButton
     'Celsius',
     'Kelvin',
     'Fahrenheit'
@@ -45,6 +45,7 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
     }
     else {return baseValue;}
   }
+  
 
   @override
   void dispose() {
@@ -65,7 +66,7 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
           children : <Widget>[
             Container(
               padding: const EdgeInsets.only(top: 50, right: 50, left:50 ),
-              child: DropdownButton<String>(
+              child: DropdownButton<String>(  //1er DropDown
                 dropdownColor: Colors.white60,
                   underline: Container(
                     height: 3,
@@ -94,7 +95,7 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
             ),
             Container(
               padding: const EdgeInsets.only(top: 50, right: 50, left:50 ),
-              child: TextField(
+              child: TextField(  //1er TextFields
                 controller: myController1,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -115,7 +116,7 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
             ),
             Container(
               padding: const EdgeInsets.only(top: 200, right: 50, left:50 ),
-              child :DropdownButton<String>(
+              child :DropdownButton<String>(   //2ème dropdown
                 dropdownColor: Colors.white60,
                 underline: Container(
                   height: 3,
@@ -147,7 +148,7 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
             ),
             Container(
               padding: const EdgeInsets.only(top: 50, right: 50, left:50 ),
-              child: TextField(
+              child: TextField( //2ème TextFields
                 controller: myController2,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
