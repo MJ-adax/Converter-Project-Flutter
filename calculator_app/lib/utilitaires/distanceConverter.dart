@@ -13,10 +13,9 @@ class DistanceConverterPage extends StatefulWidget  {
 
 class _DistanceConverterPageState extends State<DistanceConverterPage> {
 
-
   var firstTextFieldController = TextEditingController();
   var secondTextFieldController = TextEditingController();
-
+  //On utilise l'id pour référencer la distance.
   var _sizeFormat = [
     "Millimètres (mm)",
     "Centimètres (cm)",
@@ -132,19 +131,32 @@ class _DistanceConverterPageState extends State<DistanceConverterPage> {
     );
   }
 
+  // En fonction du format de translate, demande beaucoup de vérification.
   String _distanceTranslate(String baseValue, int formatToTranslate, int formatTranslated) {
+    /*
+    Metric to Metric
+     */
     if(formatToTranslate < 8 && formatTranslated < 8) {
       print("inf 8");
       return _distanceTranslateMetricToMetric(baseValue, formatToTranslate, formatTranslated); // When converting metric system to Metric system
     }
+    /*
+    Imperial to Imperial
+     */
     else if(formatToTranslate >= 8 && formatTranslated >= 8) {
       print("sup 8");
       return _distanceTranslateImperialToImperial(baseValue, formatToTranslate, formatTranslated);// When converting imperial system to imperial system
     }
+    /*
+    Metric to Imperial
+     */
     else if(formatToTranslate < 8 && formatTranslated >= 8) {
       print("metric to imp");
       return _distanceTranslateMetricToImperial(baseValue, formatToTranslate, formatTranslated);// When converting metric system to imperial system
     }
+    /*
+    Imperial to Metric
+     */
     else if( formatTranslated < 8 && formatToTranslate >= 8) {
       print("imp to met");
       return _distanceTranslateImperialToMetric(baseValue, formatToTranslate, formatTranslated);// When converting imperial system to Metric system
@@ -153,17 +165,15 @@ class _DistanceConverterPageState extends State<DistanceConverterPage> {
   }
 }
 
+  //Très peu maintenable, mais valeur fixe => en faire une interface / library
   String _distanceTranslateMetricToMetric(String baseValue, int formatToTranslate, int formatTranslated) {
-    print("METRIC TO METRIC");
     if(formatToTranslate > formatTranslated){
       return (num.parse(baseValue)*pow(10, formatToTranslate - formatTranslated)).toString();
     } else {
       return (num.parse(baseValue)/pow(10, formatTranslated - formatToTranslate)).toString();
     }
   }
-
   String _distanceTranslateImperialToImperial(baseValue, formatToTranslate, formatTranslated) {
-    print("IMPERIAL TO IMPERIAL");
     switch(formatToTranslate) {
       case 8 :
         switch(formatTranslated) {
@@ -191,7 +201,6 @@ class _DistanceConverterPageState extends State<DistanceConverterPage> {
   }
 
   String _distanceTranslateMetricToImperial(baseValue, formatToTranslate, formatTranslated) {
-    print("METRIC TO IMPERIAL");
     switch(formatToTranslate) {
       case 1 :
         switch(formatTranslated) {
@@ -215,7 +224,6 @@ class _DistanceConverterPageState extends State<DistanceConverterPage> {
         }
         break;
       case 4 :
-        print("METERS TO ...");
         switch(formatTranslated) {
           case 8 : return (num.parse(baseValue) * 39.73 ).toString();
           case 9 : return (num.parse(baseValue) *  3.281).toString();
@@ -248,7 +256,6 @@ class _DistanceConverterPageState extends State<DistanceConverterPage> {
   }
 
   String _distanceTranslateImperialToMetric(baseValue, formatToTranslate, formatTranslated) {
-    print("IMPERIAL TO METRIC");
     switch(formatToTranslate){
       case 8 :
         switch(formatTranslated) {

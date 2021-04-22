@@ -6,15 +6,18 @@ import 'package:flutter/material.dart';
 
 class AreaConverterPage extends StatefulWidget  {
   AreaConverterPage({Key? key, required this.title}) : super(key: key);
-
   final String title;
-
   @override
   _AreaConverterPageState createState() => _AreaConverterPageState();
 }
 
 class _AreaConverterPageState extends State<AreaConverterPage> {
-
+  var myController1 = TextEditingController();
+  var dropdownValue = 'km²';
+  var firstFieldResultValue = '0';
+  var myController2 = TextEditingController();
+  var dropdownValue2 = 'm²';
+  var secondFieldResultValue = '273.15';
   var areaFormat = [
     'km²',
     'm²',
@@ -23,15 +26,7 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
     'Acre'
   ];
 
-  var myController1 = TextEditingController();
-  var dropdownValue = 'km²';
-  var firstFieldResultValue = '0';
-
-  var myController2 = TextEditingController();
-  var dropdownValue2 = 'm²';
-  var secondFieldResultValue = '273.15';
-
-  String areaTranslate(String baseValue, String formatToTranslate, String formatTranslated){//fonction de convertion avec le text field les different menu du drop down en paramètres
+  String areaTranslate(String baseValue, String formatToTranslate, String formatTranslated){
 
     if(formatToTranslate == 'km²' && formatTranslated == 'm²'){
       return (num.parse(baseValue)*(pow(10, 6)) ).toString();
@@ -93,12 +88,8 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
     else if(formatToTranslate == 'Acre' && formatTranslated == 'ha'){
       return (num.parse(baseValue)/2.47105 ).toString();
     }
-
-
     else {return baseValue;}
-
   }
-
 
   @override
   void dispose() {
@@ -107,7 +98,6 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
     myController2.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +161,6 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
              padding: const EdgeInsets.only(top: 200, right: 50, left:50 ),
              child: DropdownButton<String>(     //2ème DropDown
                dropdownColor: Colors.white60,
-
                 value: dropdownValue2,
                 underline: Container(
                   height: 3,
@@ -194,14 +183,11 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
                     value: value2,
                     child: Text(value2),
                   );
-
                 })
                     .toList(),
-
               ),
         ),
             Container(
-
               padding: const EdgeInsets.only(bottom: 50, right: 50, left:50 ),
             child : TextField( //2ème TextField
               controller: myController2,
@@ -229,5 +215,4 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
       ),
     );
   }
-
 }

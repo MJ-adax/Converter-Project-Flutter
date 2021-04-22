@@ -17,31 +17,26 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
     'Kelvin',
     'Fahrenheit'
   ];
-
   var myController1 = TextEditingController();
   var dropdownValue = 'Celsius';
   var firstFieldResultValue = '0';
-
   var myController2 = TextEditingController();
   var dropdownValue2 = 'Kelvin';
   var secondFieldResultValue = '273.15';
 
-  String tempTranslate(String baseValue, String formatToTranslate, String formatTranslated){ //fonction de convertion avec le text field les different menu du drop down en paramètres
-
+  String tempTranslate(String baseValue, String formatToTranslate, String formatTranslated){
     if(formatToTranslate == 'Celsius' && formatTranslated == 'Kelvin'){
      return (num.parse(baseValue)+ 273.15 ).toString();
     }
     else if(formatToTranslate == 'Celsius' && formatTranslated == 'Fahrenheit'){
       return (num.parse(baseValue)*(9/5) +32).toString();
     }
-
     else if(formatToTranslate == 'Fahrenheit' && formatTranslated == 'Celsius'){
       return ((num.parse(baseValue)-32)*(5/9) ).toString();
     }
     else if(formatToTranslate == 'Fahrenheit' && formatTranslated == 'Kelvin'){
       return ((num.parse(baseValue)-32)*(5/9)+273.15 ).toString();
     }
-
     else if(formatToTranslate == 'Kelvin' && formatTranslated == 'Fahrenheit'){
       return ((num.parse(baseValue)- 273.15)*(9/5)+32 ).toString();
     }
@@ -49,7 +44,6 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
       return (num.parse(baseValue)- 273.15 ).toString();
     }
     else {return baseValue;}
-
   }
   
 
@@ -60,7 +54,6 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
     myController2.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -179,5 +172,4 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
       ),
     );
   }
-
 }

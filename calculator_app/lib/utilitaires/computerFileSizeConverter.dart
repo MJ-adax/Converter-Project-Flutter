@@ -6,18 +6,18 @@ import 'package:flutter/material.dart';
 class ComputerFileSizeConverterPage extends StatefulWidget {
   ComputerFileSizeConverterPage({Key? key, required this.title})
       : super(key: key);
-
   final String title;
-
   @override
   _ComputerFileSizePageState createState() => _ComputerFileSizePageState();
 }
 
 class _ComputerFileSizePageState extends State<ComputerFileSizeConverterPage> {
-
   var firstTextFieldController = TextEditingController();
   var secondTextFieldController = TextEditingController();
-
+  var _firstFieldSelectedValue = "Octet (o)";
+  var _firstFieldResultValue = "67";
+  var _secondFieldSelectedValue = "GigaOctet (Go)";
+  var _secondFieldResultValue = "0";
   var _sizeFormat = [
     "Octet (o)",
     "KiloOctet (Ko)",
@@ -27,14 +27,8 @@ class _ComputerFileSizePageState extends State<ComputerFileSizeConverterPage> {
     "PetaOctet (Po)"
   ];
 
-  var _firstFieldSelectedValue = "Octet (o)";
-  var _firstFieldResultValue = "67";
-
-  var _secondFieldSelectedValue = "GigaOctet (Go)";
-  var _secondFieldResultValue = "0";
 
    String _fileSizeTranslate(String baseValue, int formatToTranslate, int formatTranslated){
-
     if(formatToTranslate > formatTranslated){
       return (num.parse(baseValue)*pow(1000, formatToTranslate - formatTranslated)).toString();
     } else {
