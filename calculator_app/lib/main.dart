@@ -1,4 +1,4 @@
-import 'package:calculator_app/navigationItems.dart';
+import 'package:calculator_app/models/navigationItems.dart';
 import 'package:calculator_app/utilitaires/ageCalculator.dart';
 import 'package:calculator_app/utilitaires/areaConverter.dart';
 import 'package:calculator_app/utilitaires/computerFileSizeConverter.dart';
