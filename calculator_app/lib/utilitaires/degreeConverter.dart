@@ -77,90 +77,109 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
       body: Center(
         child: Column(
           children : <Widget>[
-            DropdownButton<String>(
-
-              value: dropdownValue,
-              onChanged: (String? selectedValue) {
-                setState(() {
-                  dropdownValue = selectedValue!;
-                secondFieldResultValue = tempTranslate(
-                    firstFieldResultValue,
-                    dropdownValue,
-                    dropdownValue2
-
-                  );
-                  myController2.text = secondFieldResultValue;
-                });
-                },
-                items: tempFormat
-                    .map<DropdownMenuItem<String>>((String value) {
-                   return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList()),
-            TextField(
-              controller: myController1,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Valeur à convertir',
-              ),
-              onChanged: (String? inputValue){
-                setState((){
-                  firstFieldResultValue = inputValue!;
+            Container(
+              padding: const EdgeInsets.only(top: 50, right: 50, left:50 ),
+              child: DropdownButton<String>(
+                dropdownColor: Colors.white60,
+                  underline: Container(
+                    height: 3,
+                    color: Colors.red,
+                  ),
+                value: dropdownValue,
+                onChanged: (String? selectedValue) {
+                  setState(() {
+                    dropdownValue = selectedValue!;
                   secondFieldResultValue = tempTranslate(
                       firstFieldResultValue,
                       dropdownValue,
                       dropdownValue2
-                  );
-                  myController2.text = secondFieldResultValue;
-                });
-              },
+
+                    );
+                    myController2.text = secondFieldResultValue;
+                  });
+                  },
+                  items: tempFormat
+                      .map<DropdownMenuItem<String>>((String value) {
+                     return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList()),
             ),
-            DropdownButton<String>(
-              value: dropdownValue2,
-              onChanged: (String? selectedValue) {
-                setState(() {
-                  dropdownValue2 = selectedValue!;
-                firstFieldResultValue = tempTranslate(
-                    secondFieldResultValue,
-                    dropdownValue2,
-                    dropdownValue
-
-                  );
-                  myController1.text = firstFieldResultValue;
-                });
-              },
-              items: tempFormat
-                  .map<DropdownMenuItem<String>>((String value2) {
-                return DropdownMenuItem<String>(
-                  value: value2,
-                  child: Text(value2),
-                );
-              })
-                  .toList(),
-
-            ),
-
-            TextField(
-              controller: myController2,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Valeur à convertir',
+            Container(
+              padding: const EdgeInsets.only(top: 50, right: 50, left:50 ),
+              child: TextField(
+                controller: myController1,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Valeur à convertir',
+                ),
+                onChanged: (String? inputValue){
+                  setState((){
+                    firstFieldResultValue = inputValue!;
+                    secondFieldResultValue = tempTranslate(
+                        firstFieldResultValue,
+                        dropdownValue,
+                        dropdownValue2
+                    );
+                    myController2.text = secondFieldResultValue;
+                  });
+                },
               ),
-              onChanged: (String? inputValue){
-                setState((){
-                  secondFieldResultValue = inputValue!;
+            ),
+            Container(
+              padding: const EdgeInsets.only(top: 200, right: 50, left:50 ),
+              child :DropdownButton<String>(
+                dropdownColor: Colors.white60,
+                underline: Container(
+                  height: 3,
+                  color: Colors.red,
+                ),
+                value: dropdownValue2,
+                onChanged: (String? selectedValue) {
+                  setState(() {
+                    dropdownValue2 = selectedValue!;
                   firstFieldResultValue = tempTranslate(
                       secondFieldResultValue,
                       dropdownValue2,
                       dropdownValue
+
+                    );
+                    myController1.text = firstFieldResultValue;
+                  });
+                },
+                items: tempFormat
+                    .map<DropdownMenuItem<String>>((String value2) {
+                  return DropdownMenuItem<String>(
+                    value: value2,
+                    child: Text(value2),
                   );
-                  myController1.text = firstFieldResultValue;
-                });
-              },
+                })
+                    .toList(),
+
+              ),
             ),
-            
+            Container(
+              padding: const EdgeInsets.only(top: 50, right: 50, left:50 ),
+              child: TextField(
+                controller: myController2,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Valeur à convertir',
+                ),
+                onChanged: (String? inputValue){
+                  setState((){
+                    secondFieldResultValue = inputValue!;
+                    firstFieldResultValue = tempTranslate(
+                        secondFieldResultValue,
+                        dropdownValue2,
+                        dropdownValue
+                    );
+                    myController1.text = firstFieldResultValue;
+                  });
+                },
+              ),
+            ),
           ],
         ),
       ),

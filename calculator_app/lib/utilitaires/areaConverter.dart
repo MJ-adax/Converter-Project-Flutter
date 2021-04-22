@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -124,10 +125,17 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
       ),
       body: Center(
         child: Column(
-          children : <Widget>[
-            DropdownButton<String>(
 
+          children : <Widget>[
+          Container(
+            padding: const EdgeInsets.only(top: 50, right: 50, left:50 ),
+            child: DropdownButton<String>(
+              dropdownColor: Colors.white60,
                 value: dropdownValue,
+                underline: Container(
+                  height: 3,
+                  color: Colors.red,
+                ),
                 onChanged: (String? selectedValue) {
                   setState(() {
                     dropdownValue = selectedValue!;
@@ -150,53 +158,71 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
                     child: Text(value),
                   );
                 }).toList()),
-            TextField(
-              controller: myController1,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Valeur à convertir',
+          ),
+          Container(
+            padding: const EdgeInsets.only(top: 50, right: 50, left:50 ),
+            child:  TextField(
+                controller: myController1,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Valeur à convertir',
+                ),
+                onChanged: (String? inputValue){
+                  setState((){
+                    secondFieldResultValue = areaTranslate(
+                        firstFieldResultValue,
+                        dropdownValue,
+                        dropdownValue2
+                    );
+                    myController2.text = secondFieldResultValue;
+                  });
+                },
               ),
-              onChanged: (String? inputValue){
-                setState((){
-                  secondFieldResultValue = areaTranslate(
-                      firstFieldResultValue,
-                      dropdownValue,
-                      dropdownValue2
-                  );
-                  myController2.text = secondFieldResultValue;
-                });
-              },
-            ),
-            DropdownButton<String>(
-              value: dropdownValue2,
-              onChanged: (String? selectedValue) {
-                setState(() {
-                  dropdownValue2 = selectedValue!;
-                  firstFieldResultValue = areaTranslate(
-                      secondFieldResultValue,
-                      dropdownValue2,
-                      dropdownValue
-                  );
-                  myController1.text = firstFieldResultValue;
-                });
-              },
-              items: areaFormat
-                  .map<DropdownMenuItem<String>>((String value2) {
-                return DropdownMenuItem<String>(
-                  value: value2,
-                  child: Text(value2),
-                );
-              })
-                  .toList(),
+        ),
+            Container(
+             padding: const EdgeInsets.only(top: 200, right: 50, left:50 ),
+             child: DropdownButton<String>(
+               dropdownColor: Colors.white60,
 
-            ),
+                value: dropdownValue2,
+                underline: Container(
+                  height: 3,
+                  color: Colors.red,
+                ),
+                onChanged: (String? selectedValue) {
+                  setState(() {
+                    dropdownValue2 = selectedValue!;
+                    firstFieldResultValue = areaTranslate(
+                        secondFieldResultValue,
+                        dropdownValue2,
+                        dropdownValue
+                    );
+                    myController1.text = firstFieldResultValue;
+                  });
+                },
+                items: areaFormat
+                    .map<DropdownMenuItem<String>>((String value2) {
+                  return DropdownMenuItem<String>(
+                    value: value2,
+                    child: Text(value2),
+                  );
 
-            TextField(
+                })
+                    .toList(),
+
+              ),
+        ),
+            Container(
+
+              padding: const EdgeInsets.only(bottom: 50, right: 50, left:50 ),
+            child : TextField(
               controller: myController2,
+
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Valeur à convertir',
               ),
+
               onChanged: (String? inputValue){
                 setState((){
                   secondFieldResultValue = inputValue!;
@@ -209,7 +235,7 @@ class _AreaConverterPageState extends State<AreaConverterPage> {
                 });
               },
             ),
-
+            ),
           ],
         ),
       ),
