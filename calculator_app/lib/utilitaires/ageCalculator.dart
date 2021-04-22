@@ -54,7 +54,7 @@ class _AgeCalculatorPageState extends State<AgeCalculatorPage> {
                   + " " + DateFormat("dd").format(_dateTime).toString()
                   + " " + DateFormat("MMMM").format(_dateTime).toString()
                   + " " + DateFormat("yyyy").format(_dateTime).toString()),
-              Text(days +" " + months + " " + years),
+              Text(years +" " + months + " " + days),
               Text(years),
               Text(monthsSinceBirth),
               Text(daysSinceBirth),
