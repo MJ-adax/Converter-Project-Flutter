@@ -17,12 +17,14 @@ class NumericValueConverterPage extends StatefulWidget  {
 
 class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
 
+  //Liste des valeurs de séléction
   var numeriqueFormat = [
     'dec',
     'bin',
     'hex',
     'oct'
   ];
+
 
   var myController1 = TextEditingController();
   var dropdownValue = 'bin';
@@ -32,8 +34,10 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
   var dropdownValue2 = 'dec';
   var secondFieldResultValue = '0';
 
+  //Fonction qui convertis d'une valeur à une autre
   String NumTranslate(String baseValue, String formatToTranslate, String formatTranslated){
 
+    //Pour passer du Binaire au Décimal
     if(formatToTranslate == 'bin' && formatTranslated == 'dec'){
       int res = 0;
       int puis = 1;
@@ -46,6 +50,8 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
       }
       return res.toString();
     }
+
+    //Pour passer du Binaire à la base Octal
     else if(formatToTranslate == 'bin' && formatTranslated == 'oct'){
       int res = 0;
       int puis = 1;
@@ -79,6 +85,8 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
 
     }
 
+
+    //Pour passer du Binaire à l'hexadecimal
     else if(formatToTranslate == 'bin' && formatTranslated == 'hex'){
       int res = 0;
       int puis = 1;
@@ -135,6 +143,8 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
 
 
     }
+
+    //Pour passer du décimal au binaire
     else if(formatToTranslate == 'dec' && formatTranslated == 'bin'){
 
       var tableau =[];
@@ -156,6 +166,7 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
       return (resultat);
     }
 
+    //Pour passer du décimal à la base octal
     else if(formatToTranslate == 'dec' && formatTranslated == 'oct'){
       var tableau = [];
       num chiffre = 0;
@@ -176,6 +187,8 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
       }
       return (resultat);
     }
+
+    //Pour passer du décimal à la base hexadecimal
     else if(formatToTranslate == 'dec' && formatTranslated == 'hex'){
       var tableau = [];
       String resultat = "";
@@ -221,6 +234,8 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
       return (resultat);
 
     }
+
+    //Pour passer du hexadecimal à la base binaire
     else if(formatToTranslate == 'hex' && formatTranslated == 'bin'){
       var tableau =[];
       int decimalEntier = 0;
@@ -287,6 +302,8 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
       return(resultat.toString());
 
     }
+
+    //Pour passer du hexadecimal à la base octal
     else if(formatToTranslate == 'hex' && formatTranslated == 'oct'){
       var tableau = [];
       num chiffre = 0;
@@ -352,6 +369,8 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
 
 
     }
+
+    //Pour passer du hexadecimal à la base décimal
     else if(formatToTranslate == 'hex' && formatTranslated == 'dec'){
       int resultat = 0;
       num calcul = 0;
@@ -399,6 +418,8 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
       return(resultat.toString());
 
     }
+
+    //Pour passer du Octal à la base décimal
     else if(formatToTranslate == 'oct' && formatTranslated == 'dec'){
       num decimalNumber = 0;
       String resultat = "";
@@ -414,6 +435,8 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
       resultat = decimalNumber.round().toString();
       return (resultat);
     }
+
+    //Pour passer du Octal à la base hexadécimal
     else if(formatToTranslate == 'oct' && formatTranslated == 'hex'){
       num decimalNumber = 0;
       num decimal = 0;
@@ -471,6 +494,8 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
 
       return (resultat);
     }
+
+    //Pour passer du Octal à la base binaire
     else if(formatToTranslate == 'oct' && formatTranslated == 'bin'){
       var tableau =[];
       String resultat = "";
