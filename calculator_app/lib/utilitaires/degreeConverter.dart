@@ -12,36 +12,31 @@ class DegreeConverterPage extends StatefulWidget  {
 
 class _DegreeConverterPageState extends State<DegreeConverterPage> {
 
-  var tempFormat = [
+  var tempFormat = [ //tableau dea format pour le DropDownButton
     'Celsius',
     'Kelvin',
     'Fahrenheit'
   ];
-
   var myController1 = TextEditingController();
   var dropdownValue = 'Celsius';
   var firstFieldResultValue = '0';
-
   var myController2 = TextEditingController();
   var dropdownValue2 = 'Kelvin';
   var secondFieldResultValue = '273.15';
 
   String tempTranslate(String baseValue, String formatToTranslate, String formatTranslated){
-
     if(formatToTranslate == 'Celsius' && formatTranslated == 'Kelvin'){
      return (num.parse(baseValue)+ 273.15 ).toString();
     }
     else if(formatToTranslate == 'Celsius' && formatTranslated == 'Fahrenheit'){
       return (num.parse(baseValue)*(9/5) +32).toString();
     }
-
     else if(formatToTranslate == 'Fahrenheit' && formatTranslated == 'Celsius'){
       return ((num.parse(baseValue)-32)*(5/9) ).toString();
     }
     else if(formatToTranslate == 'Fahrenheit' && formatTranslated == 'Kelvin'){
       return ((num.parse(baseValue)-32)*(5/9)+273.15 ).toString();
     }
-
     else if(formatToTranslate == 'Kelvin' && formatTranslated == 'Fahrenheit'){
       return ((num.parse(baseValue)- 273.15)*(9/5)+32 ).toString();
     }
@@ -49,15 +44,8 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
       return (num.parse(baseValue)- 273.15 ).toString();
     }
     else {return baseValue;}
-
   }
-
-
-
-
-
-
-
+  
 
   @override
   void dispose() {
@@ -66,7 +54,6 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
     myController2.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +66,7 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
           children : <Widget>[
             Container(
               padding: const EdgeInsets.only(top: 50, right: 50, left:50 ),
-              child: DropdownButton<String>(
+              child: DropdownButton<String>(  //1er DropDown
                 dropdownColor: Colors.white60,
                   underline: Container(
                     height: 3,
@@ -108,7 +95,7 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
             ),
             Container(
               padding: const EdgeInsets.only(top: 50, right: 50, left:50 ),
-              child: TextField(
+              child: TextField(  //1er TextFields
                 controller: myController1,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -129,7 +116,7 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
             ),
             Container(
               padding: const EdgeInsets.only(top: 200, right: 50, left:50 ),
-              child :DropdownButton<String>(
+              child :DropdownButton<String>(   //2ème dropdown
                 dropdownColor: Colors.white60,
                 underline: Container(
                   height: 3,
@@ -161,7 +148,7 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
             ),
             Container(
               padding: const EdgeInsets.only(top: 50, right: 50, left:50 ),
-              child: TextField(
+              child: TextField( //2ème TextFields
                 controller: myController2,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -185,5 +172,4 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
       ),
     );
   }
-
 }

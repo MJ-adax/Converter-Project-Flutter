@@ -1,3 +1,11 @@
+import 'package:calculator_app/animationsRoute/fadeRoute.dart';
+import 'package:calculator_app/animationsRoute/rotationRoute.dart';
+import 'package:calculator_app/animationsRoute/scaleRoute.dart';
+import 'package:calculator_app/animationsRoute/sizeRoute.dart';
+import 'package:calculator_app/animationsRoute/slideDownRoute.dart';
+import 'package:calculator_app/animationsRoute/slideLeftRoute.dart';
+import 'package:calculator_app/animationsRoute/slideRightRoute.dart';
+import 'package:calculator_app/animationsRoute/slideTopRoute.dart';
 import 'package:calculator_app/models/navigationItems.dart';
 import 'package:calculator_app/utilitaires/ageCalculator.dart';
 import 'package:calculator_app/utilitaires/areaConverter.dart';
@@ -8,7 +16,9 @@ import 'package:calculator_app/utilitaires/numericValueConverter.dart';
 import 'package:calculator_app/utilitaires/romanConverter.dart';
 import 'package:calculator_app/utilitaires/saleCalculator.dart';
 import 'package:calculator_app/utilitaires/timesUpCalculator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -57,60 +67,28 @@ class _MyHomePageState extends State<MyHomePage> {
   void navigateToChosenDestination (String chosenDestination) {
     switch(chosenDestination){
       case "Convertisseur de Fichiers Informatiques":
-        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-          return new ComputerFileSizeConverterPage(
-              title: chosenDestination
-          );
-        }));
+        Navigator.push(context, FadeRoute(page: ComputerFileSizeConverterPage(title: chosenDestination)));
         break;
       case "Calculateur d'Age":
-        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-          return new AgeCalculatorPage(
-              title: chosenDestination
-          );
-        }));
+        Navigator.push(context, SlideDownRoute(page: AgeCalculatorPage(title: chosenDestination)));
         break;
       case "Calculateur de Promotions":
-        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-          return new SaleCalculatorPage(
-              title: chosenDestination
-          );
-        }));
+        Navigator.push(context, RotationRoute(page: SaleCalculatorPage(title: chosenDestination)));
         break;
       case "Calculateur de Temps écoulé":
-        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-          return new TimesUpCalculatorPage(
-              title: chosenDestination
-          );
-        }));
+        Navigator.push(context, SlideRightRoute(page: TimesUpCalculatorPage(title: chosenDestination)));
         break;
       case "Convertisseur des Unités de distance":
-        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-          return new DistanceConverterPage(
-              title: chosenDestination
-          );
-        }));
+        Navigator.push(context, SizeRoute(page: DistanceConverterPage(title: chosenDestination)));
         break;
       case "Convertisseur des Valeurs numériques":
-        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-          return new NumericValueConverterPage(
-              title: chosenDestination
-          );
-        }));
+        Navigator.push(context, SlideLeftRoute(page: NumericValueConverterPage(title: chosenDestination)));
         break;
       case "Convertisseur des Aires":
-        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-          return new AreaConverterPage(
-              title: chosenDestination
-          );
-        }));
+        Navigator.push(context, ScaleRoute(page: AreaConverterPage(title: chosenDestination)));
         break;
       case "Convertisseur des Températures":
-        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-          return new DegreeConverterPage(
-              title: chosenDestination
-          );
-        }));
+        Navigator.push(context, SlideTopRoute(page: DegreeConverterPage(title: chosenDestination)));
         break;
       case "Convertisseur des Chiffres romains":
         Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){

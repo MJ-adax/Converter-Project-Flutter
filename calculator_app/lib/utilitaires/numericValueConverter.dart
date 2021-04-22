@@ -6,34 +6,26 @@ import 'dart:core';
 
 class NumericValueConverterPage extends StatefulWidget  {
   NumericValueConverterPage({Key? key, required this.title}) : super(key: key);
-
   final String title;
-
   @override
   _NumericValueConverterPageState createState() => _NumericValueConverterPageState();
 }
 
-
-
 class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
-
   var numeriqueFormat = [
     'dec',
     'bin',
     'hex',
     'oct'
   ];
-
   var myController1 = TextEditingController();
   var dropdownValue = 'bin';
   var firstFieldResultValue = '0';
-
   var myController2 = TextEditingController();
   var dropdownValue2 = 'dec';
   var secondFieldResultValue = '0';
 
   String NumTranslate(String baseValue, String formatToTranslate, String formatTranslated){
-
     if(formatToTranslate == 'bin' && formatTranslated == 'dec'){
       int res = 0;
       int puis = 1;
@@ -56,7 +48,6 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
         res = res + int.parse(decimalSplit[i])*puis;
         puis = puis *2;
       }
-
       var tableau = [];
       num chiffre = 0;
       int resteEntier = 0;
@@ -66,17 +57,13 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
       while(nombreDec != 0){
         chiffre = nombreDec % 8;
         resteEntier = chiffre.round();
-
         tableau.add(resteEntier.toString());
         nombreDec = (nombreDec - chiffre)/8;
       }
-      for(int i = tableau.length -1; i >= 0; i = i - 1)
-      {
+      for(int i = tableau.length -1; i >= 0; i = i - 1) {
         resultat += tableau[i].toString();
       }
-
       return (resultat);
-
     }
 
     else if(formatToTranslate == 'bin' && formatTranslated == 'hex'){
@@ -89,7 +76,6 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
         res = res + int.parse(decimalSplit[i])*puis;
         puis = puis *2;
       }
-
       var tableau = [];
       String resultat = "";
       int resteEntier = 0;
@@ -98,7 +84,6 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
       while(nombreDec != 0){
         chiffre = nombreDec % 16;
         resteEntier = chiffre.round();
-
         tableau.add(resteEntier.toString());
         nombreDec = (nombreDec - chiffre)/16;
       }
@@ -136,7 +121,6 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
 
     }
     else if(formatToTranslate == 'dec' && formatTranslated == 'bin'){
-
       var tableau =[];
       String resultat = "";
       int resteEntier = 0;
