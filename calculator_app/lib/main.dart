@@ -6,7 +6,7 @@ import 'package:calculator_app/animationsRoute/slideDownRoute.dart';
 import 'package:calculator_app/animationsRoute/slideLeftRoute.dart';
 import 'package:calculator_app/animationsRoute/slideRightRoute.dart';
 import 'package:calculator_app/animationsRoute/slideTopRoute.dart';
-import 'package:calculator_app/navigationItems.dart';
+import 'package:calculator_app/models/navigationItems.dart';
 import 'package:calculator_app/utilitaires/ageCalculator.dart';
 import 'package:calculator_app/utilitaires/areaConverter.dart';
 import 'package:calculator_app/utilitaires/computerFileSizeConverter.dart';
@@ -16,7 +16,9 @@ import 'package:calculator_app/utilitaires/numericValueConverter.dart';
 import 'package:calculator_app/utilitaires/romanConverter.dart';
 import 'package:calculator_app/utilitaires/saleCalculator.dart';
 import 'package:calculator_app/utilitaires/timesUpCalculator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 
 void main() {
   runApp(MyApp());

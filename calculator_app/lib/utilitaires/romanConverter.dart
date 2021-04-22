@@ -1,3 +1,6 @@
+import 'package:calculator_app/roman_numbers/symbol_utils.dart';
+import 'package:calculator_app/roman_numbers/to_decimal_numbers.dart';
+import 'package:calculator_app/roman_numbers/to_roman_numbers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,24 +15,14 @@ class RomanConverterPage extends StatefulWidget  {
 
 class _RomanConverterPageState extends State<RomanConverterPage> {
 
-  var _romanConverter = {
-    "I" : "1",
-    "V" : "5",
-    "X" : "10",
-    "L" : "50",
-    "C" : "100",
-    "D" : "500",
-    "M" : "1000"
-  };
+  ToRomanNumbers toRomanNumbers = ToRomanNumbers.standard();
+  ToDecimalNumbers toDecimalNumbers = ToDecimalNumbers.standard();
 
   var romanNumbersValue = "";
   var decimalFieldResultValue = "0";
   var decimalTextFieldController = TextEditingController();
 
-  String _romanNumbersTranslate(String baseValue, int formatToTranslate, int formatTranslated){
-
-    return " ";
-  }
+  var errors = [];
 
   @override
   Widget build(BuildContext context) {
@@ -49,36 +42,88 @@ class _RomanConverterPageState extends State<RomanConverterPage> {
                 onChanged: (String? inputValue){
                   setState((){
                     decimalFieldResultValue = inputValue!;
+                    decimalTextFieldController.text = decimalFieldResultValue;
+                    try {
+                      romanNumbersValue = toRomanNumbers(int.parse(decimalFieldResultValue)).toString();
+                    } catch (e){
+                      if(!errors.contains("Votre nombre décimal est trop grand, il ne peut dépasser 3999") ){
+                        errors.add("Votre nombre décimal est trop grand, il ne peut dépasser 3999");
+                      }
+                    }
+
                   });
                 },
               ),
-              Column(
+              Row(
                   children: [
                     Text(
                       "$romanNumbersValue"
                     ),
-                    Row(
-                      children: [
-                        ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: _romanConverter.length,
-                          itemBuilder: (context, index) {
-                            return TextButton(
-                                onPressed: () {
-                                  print("Hello");
-                                },
-                                child: Text("${_romanConverter[index]}")
-                            );
-                          }
+                    Expanded(child:
+                      Row(
+                        children: [
+                          Expanded(child:
+                            ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: standardSymbols.length,
+                                itemBuilder: (context, index) {
+                                  return new Container(
+                                      child :
+                                      TextButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              romanNumbersValue += standardSymbols[index];
+                                              decimalTextFieldController.text = decimalFieldResultValue;
+                                              try {
+                                                decimalFieldResultValue = toDecimalNumbers(romanNumbersValue).toString();
+                                              } catch (e){
+                                                if(!errors.contains("Une erreur est survenue, veuillez réinitialiser votre nombre romain") ){
+                                                  errors.add("Une erreur est survenue, veuillez réinitialiser votre nombre romain");
+                                                }
+                                              }
+                                            });
+                                          },
+                                          child: Text("${standardSymbols[index]}")
+                                      )
+                                  );
+                                }
+                            )
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  romanNumbersValue = "";
+                                  decimalFieldResultValue = "";
+                                  decimalTextFieldController.text = decimalFieldResultValue;
+                                  errors = [];
+                                });
+
+                              },
+                              child:
+                                Icon(Icons.delete)
                           )
-                      ],
-                    )
-                  ]
+                        ]
+                      )
+                    ),
+
+                  ],
+              ),
+              Expanded(child:
+                ListView.builder(
+                    itemCount: errors.length,
+                    itemBuilder: (context, index){
+                      return Text(errors[index],
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                      );
+                    }
+
+                )
               )
             ],
           )
       ),
     );
   }
-
 }
