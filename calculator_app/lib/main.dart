@@ -40,16 +40,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  String displayMode = "Grid";
+
   var navigation = [
-    NavigationItem("Convertisseur de Fichiers Informatiques", Icon(Icons.folder), Colors.lightBlue),
-    NavigationItem("Calculateur d'Age", Icon(Icons.folder), Colors.lightBlue),
-    NavigationItem("Calculateur de Promotions", Icon(Icons.folder), Colors.lightBlue),
-    NavigationItem("Calculateur de Temps écoulé", Icon(Icons.folder), Colors.lightBlue),
-    NavigationItem("Convertisseur des Unités de distance", Icon(Icons.folder), Colors.lightBlue),
-    NavigationItem("Convertisseur des Valeurs numériques", Icon(Icons.folder), Colors.lightBlue),
-    NavigationItem("Convertisseur des Aires", Icon(Icons.folder), Colors.lightBlue),
-    NavigationItem("Convertisseur des Températures", Icon(Icons.folder), Colors.lightBlue),
-    NavigationItem("Convertisseur des Chiffres romains", Icon(Icons.folder), Colors.lightBlue)
+    NavigationItem("Convertisseur de Fichiers Informatiques", Icon(Icons.file_copy_outlined), Colors.lightBlue),
+    NavigationItem("Calculateur d'Age", Icon(Icons.calendar_today_sharp), Colors.lightBlue),
+    NavigationItem("Calculateur de Promotions", Icon(Icons.add_shopping_cart), Colors.lightBlue),
+    NavigationItem("Calculateur de Temps écoulé", Icon(Icons.hourglass_bottom), Colors.lightBlue),
+    NavigationItem("Convertisseur des Unités de distance", Icon(Icons.horizontal_rule), Colors.lightBlue),
+    NavigationItem("Convertisseur des Valeurs numériques", Icon(Icons.analytics_outlined), Colors.lightBlue),
+    NavigationItem("Convertisseur des Aires", Icon(Icons.rounded_corner_sharp), Colors.lightBlue),
+    NavigationItem("Convertisseur des Températures", Icon(Icons.local_fire_department), Colors.lightBlue),
+    NavigationItem("Convertisseur des Chiffres romains", Icon(Icons.account_balance), Colors.lightBlue)
   ];
 
   void navigateToChosenDestination (String chosenDestination) {
@@ -127,7 +129,52 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
 
       ),
-      body: GridView.builder(
+      drawer: Drawer(
+        child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget> [
+              DrawerHeader(
+                child: Text("Changer l'affichage"),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+              ),
+              ListTile(
+                title: Text('Grid'),
+                onTap: () {
+                  setState(() {
+                    displayMode = "Grid";
+                  });
+
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: Text('List'),
+                onTap: () {
+                  setState(() {
+                    displayMode = "List";
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: Text('Card'),
+                onTap: () {
+                  setState(() {
+                    displayMode = "Cards";
+                  });
+
+                  Navigator.pop(context);
+                },
+              ),
+            ]
+        )
+      ),
+      body:
+        displayMode == "Grid" ?
+        GridView.builder(
+          padding: const EdgeInsets.all(10),
           itemCount: navigation.length,
           itemBuilder: (context, index) {
             return GridTile(
@@ -142,7 +189,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         Text("${navigation[index].title}", textAlign: TextAlign.center),
                       ],
                     ),
-                    color: Colors.teal[500],
+                    color: index.remainder(2) == 0 ? Colors.teal[500] : Colors.teal[100]
+
                   ),
                   onTap: () => {
                     // Navigation to ComputerFileSizeConverterPage.
@@ -158,7 +206,53 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisSpacing: 8,
             childAspectRatio: (2 / 1),
           )
-      )
+        )
+        : displayMode == "List" ?
+        ListView.builder(
+          padding: const EdgeInsets.all(20),
+          itemCount: navigation.length,
+          itemBuilder: (context, index) {
+          return ListTile(
+            leading: navigation[index].icon,
+            title: Text("${navigation[index].title}", textAlign: TextAlign.center),
+            tileColor: index.remainder(2) == 0 ? Colors.teal[500] : Colors.teal[100],
+            onTap: () => {
+              // Navigation to ComputerFileSizeConverterPage.
+              navigateToChosenDestination(navigation[index].title)
+            },
+          );
+        })
+        :  ListView.builder(
+            padding: const EdgeInsets.all(20),
+            itemCount: navigation.length,
+            itemBuilder: (context, index) {
+              return Container(
+                width: 150,
+                height: 200,
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  color: index.remainder(2) == 0 ? Colors.teal[500] : Colors.teal[100],
+                  elevation: 10,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      ListTile(
+                        leading: navigation[index].icon,
+                        title: Text("${navigation[index].title}", textAlign: TextAlign.center),
+                        //tileColor: index.remainder(2) == 0 ? Colors.teal[500] : Colors.teal[100],
+                        onTap: () => {
+                          // Navigation to ComputerFileSizeConverterPage.
+                          navigateToChosenDestination(navigation[index].title)
+                        },
+                      ),
+                    ],
+                  ),
+                )
+              );
+            })
+
     );
   }
 }

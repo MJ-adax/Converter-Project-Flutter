@@ -63,7 +63,7 @@ class _SaleCalculatorPageState extends State<SaleCalculatorPage> {
                           Flexible(
                             child: TextField(
                               controller: priceController,
-                              inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                              //inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
                             ),
                           ),
                           Text(" € ."),
@@ -75,7 +75,7 @@ class _SaleCalculatorPageState extends State<SaleCalculatorPage> {
                           Flexible(
                             child: TextField(
                               controller: percentController,
-                              inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                              //inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
                             ),
                           ),
                           Text(" % ."),
