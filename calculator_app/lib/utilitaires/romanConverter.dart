@@ -16,12 +16,14 @@ class RomanConverterPage extends StatefulWidget  {
 
 class _RomanConverterPageState extends State<RomanConverterPage> {
 
-  //ToDecimalNumbers toDecimalNumbers = ToDecimalNumbers.unicode();
-  ToRomanNumbers toRomanNumbers = ToRomanNumbers.unicode();
+  ToRomanNumbers toRomanNumbers = ToRomanNumbers.standard();
+  ToDecimalNumbers toDecimalNumbers = ToDecimalNumbers.standard();
 
   var romanNumbersValue = "";
   var decimalFieldResultValue = "0";
   var decimalTextFieldController = TextEditingController();
+
+  var errors = [];
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,15 @@ class _RomanConverterPageState extends State<RomanConverterPage> {
                 onChanged: (String? inputValue){
                   setState((){
                     decimalFieldResultValue = inputValue!;
-                    romanNumbersValue = toRomanNumbers(int.parse(decimalFieldResultValue)).toString();
+                    decimalTextFieldController.text = decimalFieldResultValue;
+                    try {
+                      romanNumbersValue = toRomanNumbers(int.parse(decimalFieldResultValue)).toString();
+                    } catch (e){
+                      if(!errors.contains("Votre nombre décimal est trop grand, il ne peut dépasser 3999") ){
+                        errors.add("Votre nombre décimal est trop grand, il ne peut dépasser 3999");
+                      }
+                    }
+
                   });
                 },
               ),
@@ -56,27 +66,61 @@ class _RomanConverterPageState extends State<RomanConverterPage> {
                           Expanded(child:
                             ListView.builder(
                                 shrinkWrap: true,
-                                itemCount: unicodeSymbols.length,
+                                itemCount: standardSymbols.length,
                                 itemBuilder: (context, index) {
                                   return new Container(
                                       child :
                                       TextButton(
                                           onPressed: () {
                                             setState(() {
-                                              romanNumbersValue += unicodeSymbols[index];
-                                              decimalFieldResultValue = toRomanNumbers.inverse()(romanNumbersValue).toString();
+                                              romanNumbersValue += standardSymbols[index];
+                                              decimalTextFieldController.text = decimalFieldResultValue;
+                                              try {
+                                                decimalFieldResultValue = toDecimalNumbers(romanNumbersValue).toString();
+                                              } catch (e){
+                                                if(!errors.contains("Une erreur est survenue, veuillez réinitialiser votre nombre romain") ){
+                                                  errors.add("Une erreur est survenue, veuillez réinitialiser votre nombre romain");
+                                                }
+                                              }
                                             });
                                           },
-                                          child: Text("${unicodeSymbols[index]}")
+                                          child: Text("${standardSymbols[index]}")
                                       )
                                   );
                                 }
                             )
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  romanNumbersValue = "";
+                                  decimalFieldResultValue = "";
+                                  decimalTextFieldController.text = decimalFieldResultValue;
+                                  errors = [];
+                                });
+
+                              },
+                              child:
+                                Icon(Icons.delete)
                           )
                         ]
                       )
-                    )
-                  ]
+                    ),
+
+                  ],
+              ),
+              Expanded(child:
+                ListView.builder(
+                    itemCount: errors.length,
+                    itemBuilder: (context, index){
+                      return Text(errors[index],
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                      );
+                    }
+
+                )
               )
             ],
           )

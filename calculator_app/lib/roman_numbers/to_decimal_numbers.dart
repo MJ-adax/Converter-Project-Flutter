@@ -16,9 +16,6 @@ class ToDecimalNumbers extends InvertibleFunction<String, int> {
   /// Constructs a FromRoman object with the standard charset - I, V, X, L, C, D, M
   ToDecimalNumbers.standard() : this(standardSymbols);
 
-  /// Constructs a FromRoman object with the unicode charset - Ⅰ, Ⅴ, Ⅹ, Ⅼ, Ⅽ, Ⅾ, ↀ, ↁ, ↂ
-  ToDecimalNumbers.unicode() : this(unicodeSymbols);
-
   final List<String> _symbols;
 
   final RegExp _romanNumeralRegExp;

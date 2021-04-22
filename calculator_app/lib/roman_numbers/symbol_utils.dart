@@ -11,19 +11,6 @@ const List<String> standardSymbols = <String>[
   'M', // 1000
 ];
 
-/// Unicode charset - Ⅰ, Ⅴ, Ⅹ, Ⅼ, Ⅽ, Ⅾ, ↀ, ↁ, ↂ.
-const List<String> unicodeSymbols = <String>[
-  'Ⅰ', // 1
-  'Ⅴ', // 5
-  'Ⅹ', // 10
-  'Ⅼ', // 50
-  'Ⅽ', // 100
-  'Ⅾ', // 500
-  'ↀ', // 1000
-  'ↁ', // 5000
-  'ↂ', // 10000
-];
-
 /// Checks if [symbols] is a valid charset
 bool areValidSymbols(List<String> symbols) {
   if (symbols.isEmpty || symbols.length != symbols.toSet().length) return false;

@@ -17,9 +17,6 @@ class ToRomanNumbers extends InvertibleFunction<int, String> {
   /// Constructs a ToRoman object with the standard charset - I, V, X, L, C, D, M
   ToRomanNumbers.standard() : this(standardSymbols);
 
-  /// Constructs a ToRoman object with the unicode charset - Ⅰ, Ⅴ, Ⅹ, Ⅼ, Ⅽ, Ⅾ, ↀ, ↁ, ↂ
-  ToRomanNumbers.unicode() : this(unicodeSymbols);
-
   final List<String> _symbols;
 
   final int _biggestRepresentableNumber;
