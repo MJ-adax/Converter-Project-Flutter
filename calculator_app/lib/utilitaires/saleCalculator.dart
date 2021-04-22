@@ -16,6 +16,8 @@ class _SaleCalculatorPageState extends State<SaleCalculatorPage> {
   double salePrice = 0;
   double savingRounded = 0;
   double salePriceRounded = 0;
+
+  /// Function to calculate promotion between a price and a reduction.
    void _calculateSale(double price, int percent) {
      saving = (price * percent) / 100;
      salePrice = price - saving;
@@ -24,6 +26,7 @@ class _SaleCalculatorPageState extends State<SaleCalculatorPage> {
        salePriceRounded = double.parse(salePrice.toStringAsFixed(2));
      });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,53 +38,82 @@ class _SaleCalculatorPageState extends State<SaleCalculatorPage> {
           padding: EdgeInsets.all(20),
           child: Column(
             children: [
-              Text("Entrez le prix et selectionnez la promotion à appliquer."),
-              Text("Appuyez sur 'Valider' pour connaitre le prix remisé ainsi que l'économie réalisée !"),
+              Text(
+                  "Entrez le prix et selectionnez la promotion à appliquer.",
+                  style: TextStyle(height: 2, fontSize: 20)
+              ),
+              Text(
+                  "Appuyez sur 'Valider' pour connaitre le prix remisé ainsi que l'économie réalisée !",
+                  style: TextStyle(height: 2, fontSize: 20)
+              ),
               Container(
-                padding: EdgeInsets.all(40),
+                width: 400,
+                padding: EdgeInsets.all(20),
                 child: Column(
                   children: [
-                    Row(
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text("Prix : "),
                           Flexible(
                             child: TextField(
                               controller: priceController,
-                              //inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'Prix'
+                              ),
                             ),
                           ),
                           Text(" € ."),
                         ]
+                      ),
                     ),
-                    Row(
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text("Promotion : "),
                           Flexible(
                             child: TextField(
                               controller: percentController,
-                              //inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'Promotion'
+                              ),
                             ),
                           ),
                           Text(" % ."),
                         ]
+                      ),
                     ),
                   ],
                 )
               ),
-              TextButton(
-                child: Text("Valider"),
+
+              ElevatedButton(
+                child: Text("Convertir"),
+                style: ElevatedButton.styleFrom(
+                  textStyle: TextStyle(
+                      fontSize: 20,
+                  ),
+                ),
                 onPressed: () {
                   _calculateSale(double.parse(priceController.text),int.parse(percentController.text));
                   ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Traitement en Cours')));
+                    const SnackBar(content: Text('Traitement en Cours')));
                 },
               ),
               if (salePrice != 0 && saving != 0)
-                Column(
-                  children: <Widget>[
-                    Text("Prix remisé : $salePriceRounded €"),
-                    Text("Economie réalisée : $savingRounded €"),
-                  ],
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text("Prix remisé : $salePriceRounded €", style: TextStyle(fontSize: 20)),
+                      Text("Economie réalisée : $savingRounded €", style: TextStyle( fontSize: 20)),
+                    ],
+                  )
                 )
             ]
           )
@@ -89,5 +121,4 @@ class _SaleCalculatorPageState extends State<SaleCalculatorPage> {
       ),
     );
   }
-
 }
