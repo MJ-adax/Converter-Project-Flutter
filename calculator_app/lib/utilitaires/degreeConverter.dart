@@ -12,6 +12,62 @@ class DegreeConverterPage extends StatefulWidget  {
 
 class _DegreeConverterPageState extends State<DegreeConverterPage> {
 
+  var tempFormat = [
+    'Celsius',
+    'Kelvin',
+    'Fahrenheit'
+  ];
+
+  var myController1 = TextEditingController();
+  var dropdownValue = 'Celsius';
+  var firstFieldResultValue = '0';
+
+  var myController2 = TextEditingController();
+  var dropdownValue2 = 'Kelvin';
+  var secondFieldResultValue = '273.15';
+
+  String tempTranslate(String baseValue, String formatToTranslate, String formatTranslated){
+
+    if(formatToTranslate == 'Celsius' && formatTranslated == 'Kelvin'){
+     return (num.parse(baseValue)+ 273.15 ).toString();
+    }
+    else if(formatToTranslate == 'Celsius' && formatTranslated == 'Fahrenheit'){
+      return (num.parse(baseValue)*(9/5) +32).toString();
+    }
+
+    else if(formatToTranslate == 'Fahrenheit' && formatTranslated == 'Celsius'){
+      return ((num.parse(baseValue)-32)*(5/9) ).toString();
+    }
+    else if(formatToTranslate == 'Fahrenheit' && formatTranslated == 'Kelvin'){
+      return ((num.parse(baseValue)-32)*(5/9)+273.15 ).toString();
+    }
+
+    else if(formatToTranslate == 'Kelvin' && formatTranslated == 'Fahrenheit'){
+      return ((num.parse(baseValue)- 273.15)*(9/5)+32 ).toString();
+    }
+    else if(formatToTranslate == 'Kelvin' && formatTranslated == 'Celsius'){
+      return (num.parse(baseValue)- 273.15 ).toString();
+    }
+    else {return baseValue;}
+
+  }
+
+
+
+
+
+
+
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController1.dispose();
+    myController2.dispose();
+    super.dispose();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +75,92 @@ class _DegreeConverterPageState extends State<DegreeConverterPage> {
         title: Text(widget.title),
       ),
       body: Center(
-          child: Text("// TODO: Ajouter l'utilitaire qui permet de convertir les températures (cf: Story 9)")
+        child: Column(
+          children : <Widget>[
+            DropdownButton<String>(
+
+              value: dropdownValue,
+              onChanged: (String? selectedValue) {
+                setState(() {
+                  dropdownValue = selectedValue!;
+                  secondFieldResultValue = tempTranslate(
+                    firstFieldResultValue,
+                    dropdownValue,
+                    dropdownValue2
+                  );
+                  myController2.text = secondFieldResultValue;
+                });
+                },
+                items: tempFormat
+                    .map<DropdownMenuItem<String>>((String value) {
+                   return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList()),
+            TextField(
+              controller: myController1,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Valeur à convertir',
+              ),
+              onChanged: (String? inputValue){
+                setState((){
+                  firstFieldResultValue = inputValue!;
+                  secondFieldResultValue = tempTranslate(
+                      firstFieldResultValue,
+                      dropdownValue,
+                      dropdownValue2
+                  );
+                  myController2.text = secondFieldResultValue;
+                });
+              },
+            ),
+            DropdownButton<String>(
+              value: dropdownValue2,
+              onChanged: (String? selectedValue) {
+                setState(() {
+                  dropdownValue2 = selectedValue!;
+                  firstFieldResultValue = tempTranslate(
+                      secondFieldResultValue,
+                      dropdownValue2,
+                      dropdownValue
+                  );
+                  myController1.text = firstFieldResultValue;
+                });
+              },
+              items: tempFormat
+                  .map<DropdownMenuItem<String>>((String value2) {
+                return DropdownMenuItem<String>(
+                  value: value2,
+                  child: Text(value2),
+                );
+              })
+                  .toList(),
+
+            ),
+
+            TextField(
+              controller: myController2,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Valeur à convertir',
+              ),
+              onChanged: (String? inputValue){
+                setState((){
+                  secondFieldResultValue = inputValue!;
+                  firstFieldResultValue = tempTranslate(
+                      secondFieldResultValue,
+                      dropdownValue2,
+                      dropdownValue
+                  );
+                  myController1.text = firstFieldResultValue;
+                });
+              },
+            ),
+            
+          ],
+        ),
       ),
     );
   }
