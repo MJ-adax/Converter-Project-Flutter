@@ -12,6 +12,7 @@ class AgeCalculatorPage extends StatefulWidget  {
 }
 
 class _AgeCalculatorPageState extends State<AgeCalculatorPage> {
+
   DateTime _dateTime = DateTime.now();
   int dayOfBirth = 1, monthOfBirth = 1, yearOfBirth = 1993;
   String monthsSinceBirth = " ";
@@ -22,51 +23,6 @@ class _AgeCalculatorPageState extends State<AgeCalculatorPage> {
   String daysUntilBirthday =  " ";
   String hours=" ", days =" ", months = " ", years =" ", minutes = " ";
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body:
-        Center(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              ElevatedButton(
-                  child: Text("Change the Date"),
-                  onPressed: (){
-                    // Date picker set ici, dernière date = aujourd'hui
-                    showDatePicker(
-                        context: context,
-                        initialDate: _dateTime,
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime.now())
-                        .then((date) {
-                      _dateTime = date!;
-                      _sinceWhenAmIHere(date);
-                      _whenIsMyBirthday();
-                    });
-                  }),
-              //Textes description âges.
-              Text("Vous êtes né le : "
-                  + DateFormat("EEEE").format(_dateTime).toString()
-                  + " " + DateFormat("dd").format(_dateTime).toString()
-                  + " " + DateFormat("MMMM").format(_dateTime).toString()
-                  + " " + DateFormat("yyyy").format(_dateTime).toString()),
-              Text(years +" " + months + " " + days),
-              Text(years),
-              Text(monthsSinceBirth),
-              Text(daysSinceBirth),
-              Text(hoursSinceBirth),
-              Text(minutesSinceBirth),
-              Text(secondsSinceBirth),
-              Text(daysUntilBirthday),
-            ]
-        ),
-      ),
-    );
-  }
 
   _sinceWhenAmIHere(DateTime date) {
     setState(() {
@@ -78,9 +34,14 @@ class _AgeCalculatorPageState extends State<AgeCalculatorPage> {
       int yearNow = int.parse(DateFormat("yyyy").format(DateTime.now()));
 
       //Résumé age
-      days = "Vous avez donc : " + ((dayNow - dayOfBirth)).toString()+ " jours";
-      months = ((monthNow - monthOfBirth)).toString() + " mois";
-      years = ((yearNow - yearOfBirth)).toString()+ " ans";
+      years = "Vous avez donc : " + ((yearNow - yearOfBirth)).toString()+ " ans";
+      months = ((monthNow - monthOfBirth)).toString() + " mois et";
+      days =  ((dayNow - dayOfBirth)).toString()+ " jours";
+
+
+
+
+
 
       _sinceBirth(dayNow, monthNow, yearNow);
     });
@@ -105,7 +66,7 @@ class _AgeCalculatorPageState extends State<AgeCalculatorPage> {
   }
 
   _whenIsMyBirthday() {
-    // On définit la date courrante
+    /// On définit la date courante
     DateTime currentTime = DateTime.now();
     DateTime birthday = DateTime(DateTime.now().year, _dateTime.month, _dateTime.day);
     setState(() {
@@ -118,4 +79,124 @@ class _AgeCalculatorPageState extends State<AgeCalculatorPage> {
       }
     });
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body:
+        Center(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(top: 20, bottom: 20),
+                width: 200,
+                height: 75,
+                child: ElevatedButton(
+                    child: Text("Change the Date"),
+                    onPressed: (){
+                      // Date picker set ici, dernière date = aujourd'hui
+                      showDatePicker(
+                          context: context,
+                          initialDate: _dateTime,
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime.now())
+                          .then((date) {
+                        _dateTime = date!;
+                        _sinceWhenAmIHere(date);
+                        _whenIsMyBirthday();
+                      });
+                    }
+                  ),
+              ),
+
+              //Textes description âges.
+              Text("Vous êtes né(e) le : "
+                  + DateFormat("EEEE").format(_dateTime).toString()
+                  + " " + DateFormat("dd").format(_dateTime).toString()
+                  + " " + DateFormat("MMMM").format(_dateTime).toString()
+                  + " " + DateFormat("yyyy").format(_dateTime).toString(),
+                  style: TextStyle(height: 1, fontSize: 20)
+              ),
+              Container(
+                child: Text(
+                    years +" " + months + " " + days,
+                    style: TextStyle(height: 2, fontSize: 18)
+                ),
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 10, bottom: 20),
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 5, bottom: 10),
+                          child: Text(
+                              years,
+                              style: TextStyle(height: 2, fontSize: 15)
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 5, bottom: 10),
+                          child: Text(
+                              monthsSinceBirth,
+                              style: TextStyle(height: 2, fontSize: 15)
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 5, bottom: 10),
+                          child: Text(
+                              daysSinceBirth,
+                              style: TextStyle(height: 2, fontSize: 15)
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 10, bottom: 20),
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 5, bottom: 10),
+                          child: Text(
+                              hoursSinceBirth,
+                              style: TextStyle(height: 2, fontSize: 15)
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 5, bottom: 10),
+                          child: Text(
+                              minutesSinceBirth,
+                              style: TextStyle(height: 2, fontSize: 15)
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 5, bottom: 10),
+                          child: Text(
+                              secondsSinceBirth,
+                              style: TextStyle(height: 2, fontSize: 15)
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                  daysUntilBirthday,
+                  style: TextStyle(height: 2, fontSize: 18)
+              ),
+            ]
+        ),
+      ),
+    );
+  }
+
 }
