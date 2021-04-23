@@ -487,11 +487,11 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
         title: Text(widget.title),
       ),
       body: Center(
-          child: Container(
-            width: MediaQuery.of(context).size.width / 6,
-            child: Column(
-              children: [
-                DropdownButton<String>(
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(top: 50, right: 50, left:50 ),
+              child: DropdownButton<String>(
                   value: dropdownValue,
                   onChanged: (String? selectedValue) {
                     setState(() {
@@ -512,9 +512,15 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
                     );
                   }).toList(),
                 ),
-                TextField(
+            ),
+            Container(
+              padding: const EdgeInsets.only(top: 50, right: 50, left:50 ),
+              child: TextField(
                   controller: myController1,
-                  decoration: InputDecoration(hintText: "Saissez une valeur"),
+                  decoration: InputDecoration(
+                      hintText: "Saissez une valeur",
+                      border: OutlineInputBorder(),
+                  ),
                   onChanged: (String? inputValue){
                     setState(() {
                       firstFieldResultValue = inputValue!;
@@ -526,47 +532,55 @@ class _NumericValueConverterPageState extends State<NumericValueConverterPage> {
                       myController2.text = secondFieldResultValue;
                     });
                   }
-                ),
-                DropdownButton<String>(
-                  value: dropdownValue2,
-                  onChanged: (String? selectedValue) {
-                    setState(() {
-                      dropdownValue2 = selectedValue!;
-                      firstFieldResultValue = NumTranslate(
-                          secondFieldResultValue,
-                          dropdownValue2,
-                          dropdownValue
-                      );
-                      myController1.text = firstFieldResultValue;
-                    });
-                  },
-                  items: numeriqueFormat
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-                TextField(
-                  controller: myController2,
-                  decoration: InputDecoration(hintText: "Saissez une valeur"),
-                  onChanged: (String? inputValue){
-                    setState((){
-                      secondFieldResultValue = inputValue!;
-                      firstFieldResultValue = NumTranslate(
-                          secondFieldResultValue,
-                          dropdownValue2,
-                          dropdownValue
-                      );
-                      myController1.text = firstFieldResultValue;
-                    });
-                  },
-                )
-              ],
-
+              ),
             ),
-          ),
+            Container(
+              padding: const EdgeInsets.only(top: 200, right: 50, left:50 ),
+              child: DropdownButton<String>(
+                value: dropdownValue2,
+                onChanged: (String? selectedValue) {
+                  setState(() {
+                    dropdownValue2 = selectedValue!;
+                    firstFieldResultValue = NumTranslate(
+                        secondFieldResultValue,
+                        dropdownValue2,
+                        dropdownValue
+                    );
+                    myController1.text = firstFieldResultValue;
+                  });
+                },
+                items: numeriqueFormat
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(bottom: 50, right: 50, left:50 ),
+              child: TextField(
+                controller: myController2,
+                decoration: InputDecoration(
+                    hintText: "Saissez une valeur",
+                    border: OutlineInputBorder(),
+                ),
+                onChanged: (String? inputValue){
+                  setState((){
+                    secondFieldResultValue = inputValue!;
+                    firstFieldResultValue = NumTranslate(
+                        secondFieldResultValue,
+                        dropdownValue2,
+                        dropdownValue
+                    );
+                    myController1.text = firstFieldResultValue;
+                  });
+                },
+              )
+            )
+          ],
+        )
       ),
     );
   }
