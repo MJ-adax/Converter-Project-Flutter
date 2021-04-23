@@ -23,7 +23,7 @@ class _TimesUpCalculatorPageState extends State<TimesUpCalculatorPage> {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: _date,
-      firstDate: DateTime(2018),
+      firstDate: DateTime(1800),
       lastDate: DateTime(2030),
     );
     if (picked != null) {
